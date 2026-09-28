@@ -12,17 +12,20 @@ La aplicación permite iniciar sesión, explorar el catálogo, agregar productos
 al carrito y, para el rol administrador, gestionar el catálogo.
 
 ## Estructura del proyecto
+```
 src/
 ├── components/
-│   ├── atoms
-│   │     ├─ Boton.jsx
-│   │     └─ InputFormulario.jsx
+│   ├── atoms/
+│   │   ├── Boton.jsx
+│   │   └── InputFormulario.jsx
 │   ├── molecules/
-│   │     └─ CampoFormulario.jsx
+│   │   └── CampoFormulario.jsx
 │   ├── organisms/
-│   │     └─ FormularioLogin.jsx
+│   │   └── FormularioLogin.jsx
 │   └── templates/
 └── pages/
+    └── Login.jsx
+```
 
 ## Tecnologías
 - React + Vite
