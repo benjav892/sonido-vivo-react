@@ -2,10 +2,9 @@ import { Container, Row, Col } from "react-bootstrap";
 import FormularioLogin from "../components/organisms/FormularioLogin";
 
 function Login(props) {
-    
-    function alIniciarSesion(evento) {
-        evento.preventDefault();
-        alert('Intentando iniciar sesión en Sonido Vivo...');
+
+    function alIniciarSesion(correo, contrasena) {
+        alert(`correo: ${correo}, contrasena ${contrasena}`);
     }
 
     return (
@@ -16,7 +15,7 @@ function Login(props) {
                         <h1 className="fw-bold">Sonido Vivo</h1>
                         <p className="text-muted">Inicia sesión en tu cuenta</p>
                     </header>
-                    
+
                     <div className="p-4 border rounded shadow-sm bg-white">
                         {/* Se pasa la función al organismo como prop, igual que en la guía */}
                         <FormularioLogin onLogin={alIniciarSesion} />
