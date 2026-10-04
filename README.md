@@ -1,7 +1,7 @@
 ## Integrantes
 - Benjamin Vasquez (benjam.vasquezc@duocuc.cl)
 - Camilo Vera (c.vera2@duocuc.cl)
-- Nombre Apellido (se.torof@duocuc.cl)
+- Sebastian Toro (se.torof@duocuc.cl)
 
 ## Caso
 Sonido-Vivo
@@ -23,8 +23,12 @@ src/
 │   ├── organisms/
 │   │   └── FormularioLogin.jsx
 │   └── templates/
-└── pages/
-    └── Login.jsx
+├── pages/
+│   └── Login.jsx
+├── data/
+├── services/
+├── context/
+└── utils/
 ```
 
 ## Tecnologías
