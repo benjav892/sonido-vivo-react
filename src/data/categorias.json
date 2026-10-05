@@ -1,0 +1,62 @@
+[
+    {
+        "id": 1,
+        "src": "/categorias/GuitarraAcustica.png",
+        "alt": "Guitarra Acustica",
+        "texto": "Guitarras Acústicas"
+    },
+    {
+        "id": 2,
+        "src": "/categorias/guitarraElectrica.png",
+        "alt": "Guitarra Electrica",
+        "texto": "Guitarras Eléctricas"
+    },
+    {
+        "id": 3,
+        "src": "/categorias/BajosElectricos.png",
+        "alt": "Bajo Electrico",
+        "texto": "Bajos Eléctricos"
+    },
+    {
+        "id": 4,
+        "src": "/categorias/bateria.png",
+        "alt": "Bateria",
+        "texto": "Baterías"
+    },
+    {
+        "id": 5,
+        "src": "/categorias/teclados.png",
+        "alt": "Teclado",
+        "texto": "Teclados y Pianos"
+    },
+    {
+        "id": 6,
+        "src": "/categorias/amplificador.png",
+        "alt": "Amplificador",
+        "texto": "Amplificadores"
+    },
+    {
+        "id": 7,
+        "src": "/categorias/microfonos.png",
+        "alt": "Microfono",
+        "texto": "Micrófonos"
+    },
+    {
+        "id": 8,
+        "src": "/categorias/pedales.png",
+        "alt": "Pedal de Efectos",
+        "texto": "Pedales de Efectos"
+    },
+    {
+        "id": 9,
+        "src": "/categorias/accesorios.png",
+        "alt": "Accesorio",
+        "texto": "Accesorios"
+    },
+    {
+        "id": 10,
+        "src": "/categorias/estudio.png",
+        "alt": "Estudio y Grabacion",
+        "texto": "Estudio y Grabación"
+    }
+]
