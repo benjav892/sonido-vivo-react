@@ -1,0 +1,109 @@
+/* === Estilos de la Tarjeta del Catalogo === */
+.titulo-catalogo {
+    text-align: center;
+    margin: 30px 0;
+    color: #200347;
+}
+
+.producto-catalogo {
+    background-color: rgb(200, 184, 224);
+    border-radius: 8px;
+    padding: 24px;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+    text-align: center;
+    transition: transform 0.3s ease;
+}
+
+.producto-catalogo:hover {
+    transform: translateY(-5px);
+}
+
+.producto-catalogo img {
+    width: 100%;
+    height: 200px;
+    object-fit: contain;
+    margin-bottom: 15px;
+}
+
+.producto-catalogo h2 {
+    font-size: 1.2rem;
+    margin-bottom: 10px;
+    color: #200347;
+}
+
+.precio {
+    font-size: 1.8rem;
+    font-weight: bold;
+    color: #094d17;
+    margin: 10px 0;
+}
+
+.marca,
+.modelo {
+    font-size: 1rem;
+    color: #4D3D4F;
+}
+
+.descripcion {
+    font-size: 0.9rem;
+    margin: 15px 0;
+    color: #333;
+}
+
+.stock {
+    font-weight: bold;
+    margin-bottom: 15px;
+}
+
+.btn-agregar {
+    background-color: rgb(142, 96, 125) !important; /* Importante para sobreescribir el azul por defecto de Bootstrap */
+    color: white !important;
+    border: none;
+    padding: 12px;
+    border-radius: 5px;
+    font-weight: bold;
+    font-size: 1rem;
+    transition: background-color 0.3s;
+}
+
+.btn-agregar:hover {
+    background-color: rgb(104, 68, 91) !important;
+}
+
+/* === Animacion del Toast === */
+.toast-mensaje {
+    position: fixed;
+    bottom: 20px;
+    right: 20px;
+    background-color: #094d17;
+    color: white;
+    padding: 15px 25px;
+    border-radius: 8px;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.3);
+    z-index: 1000;
+    font-weight: bold;
+    opacity: 0;
+    animation: aparecer 0.5s forwards, desaparecer 0.5s forwards 2.5s;
+}
+
+@keyframes aparecer {
+    from {
+        opacity: 0;
+        transform: translateY(20px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+@keyframes desaparecer {
+    from {
+        opacity: 1;
+        transform: translateY(0);
+    }
+    to {
+        opacity: 0;
+        transform: translateY(20px);
+    }
+}
