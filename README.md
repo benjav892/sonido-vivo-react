@@ -13,22 +13,78 @@ al carrito y, para el rol administrador, gestionar el catálogo.
 
 ## Estructura del proyecto
 ```
-src/
-├── components/
-│   ├── atoms/
-│   │   ├── Boton.jsx
-│   │   └── InputFormulario.jsx
-│   ├── molecules/
-│   │   └── CampoFormulario.jsx
-│   ├── organisms/
-│   │   └── FormularioLogin.jsx
-│   └── templates/
-├── pages/
-│   └── Login.jsx
-├── data/
-├── services/
-├── context/
-└── utils/
+```
+sonido-vivo-react
+├─ README.md
+├─ eslint.config.js
+├─ index.html
+├─ package-lock.json
+├─ package.json
+├─ public
+│  ├─ Categorias
+│  │  ├─ BajosElectricos.png
+│  │  ├─ GuitarraAcustica.png
+│  │  ├─ accesorios.png
+│  │  ├─ amplificador.png
+│  │  ├─ bateria.png
+│  │  ├─ estudio.png
+│  │  ├─ guitarraElectrica.png
+│  │  ├─ microfonos.png
+│  │  ├─ pedales.png
+│  │  └─ teclados.png
+│  ├─ favicon.svg
+│  ├─ icons.svg
+│  └─ img
+│     ├─ fender-frontman-15g.png
+│     ├─ pearl-roadshow.png
+│     ├─ squier-affiinity-pj.png
+│     ├─ squier-affiinity-strat.png
+│     ├─ yamaha-f310.png
+│     └─ yamaha-psre373.png
+├─ src
+│  ├─ App.css
+│  ├─ App.jsx
+│  ├─ assets
+│  │  ├─ Logo.png
+│  │  ├─ hero.png
+│  │  ├─ react.svg
+│  │  └─ vite.svg
+│  ├─ components
+│  │  ├─ atoms
+│  │  │  ├─ Boton.jsx
+│  │  │  ├─ DescInstrumento.jsx
+│  │  │  ├─ ImagenInstrumento.jsx
+│  │  │  └─ InputFormulario.jsx
+│  │  ├─ molecules
+│  │  │  ├─ CampoFormulario.jsx
+│  │  │  ├─ TarjetaCategoria.jsx
+│  │  │  └─ TarjetaProducto.jsx
+│  │  ├─ organisms
+│  │  │  ├─ CategoriaProductos.jsx
+│  │  │  ├─ Footer.jsx
+│  │  │  ├─ FormularioLogin.jsx
+│  │  │  ├─ GrillaProductos.jsx
+│  │  │  └─ Navbar.jsx
+│  │  └─ templates
+│  │     └─ placeholder.txt
+│  ├─ context
+│  │  └─ placeholder.txt
+│  ├─ data
+│  │  ├─ catalogo.json
+│  │  └─ categorias.json
+│  ├─ index.css
+│  ├─ main.jsx
+│  ├─ pages
+│  │  ├─ Catalogo.css
+│  │  ├─ Catalogo.jsx
+│  │  ├─ Inicio.jsx
+│  │  └─ Login.jsx
+│  ├─ services
+│  │  └─ placeholder.txt
+│  └─ utils
+│     └─ placeholder.txt
+└─ vite.config.js
+
 ```
 
 ## Tecnologías
