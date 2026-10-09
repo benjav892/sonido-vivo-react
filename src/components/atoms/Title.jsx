@@ -1,11 +1,13 @@
+// src/components/atoms/Title.jsx
 function Title(props) {
-  const Nivel = `h${props.nivel || 1}`; 
+    const nivel = props.nivel || 1;
+    const Tag = `h${nivel}`;
 
-  return (
-    <Nivel className={`fw-bold ${props.className || ""}`}>
-      {props.texto}
-    </Nivel>
-  );
+    return (
+        <Tag className={props.className}>
+            {props.texto}
+        </Tag>
+    );
 }
 
 export default Title;
