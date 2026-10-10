@@ -10,8 +10,9 @@ function ItemBarraLateral(props) {
         <Nav.Link
             as={NavLink}
             to={ruta}
+            end
             className={({ isActive }) =>
-                `text-white my-1 rounded ${isActive ? 'bg-primary' : ''} ${props.className || ''}`
+                `my-1 rounded ${isActive ? 'bg-primary' : ''} ${props.className || ''}`
             }
         >
             {texto}

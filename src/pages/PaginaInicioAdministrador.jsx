@@ -25,7 +25,7 @@ function PaginaInicioAdministrador(props) {
         <PlantillaAdministrador barraLateral={sidebar}>
             {/* Contenido principal inyectado como props.children en la plantilla */}
             <div className="mt-4">
-                <Titulo texto="¡Bienvenido Administrador!" nivel={2} className="mb-3" />
+                <Titulo texto="¡Bienvenido Administrador!" nivel={2} className="mb-3 text-center" />
             </div>
         </PlantillaAdministrador>
     );
