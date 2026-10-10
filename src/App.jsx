@@ -17,7 +17,7 @@ function App() {
                 <Route path="/" element={<Inicio />} />
                 <Route path="/login" element={<Login />} />
                 <Route path="/catalogo" element={<Catalogo />} />
-                
+
                 <Route path="/admin" element={<PaginaInicioAdministrador />} />
                 <Route path="/admin/usuarios" element={<PaginaGestionUsuarios />} />
                 <Route path="/admin/inventario" element={<PaginaGestionInventario />} />

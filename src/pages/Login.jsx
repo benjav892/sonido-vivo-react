@@ -1,10 +1,12 @@
 import { Container, Row, Col } from "react-bootstrap";
 import FormularioLogin from "../components/organisms/FormularioLogin";
+import { useNavigate } from "react-router-dom";
 
 function Login(props) {
-
+    const navigate = useNavigate()
     function alIniciarSesion(correo, contrasena) {
-        alert(`correo: ${correo}, contrasena ${contrasena}`);
+        navigate('/')
+        // alert(`correo: ${correo}, contrasena ${contrasena}`); Aqui se verificara la cuenta cuando exista el services
     }
 
     return (
