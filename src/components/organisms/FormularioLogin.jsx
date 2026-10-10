@@ -10,6 +10,7 @@ function FormularioLogin(props) {
     const [contrasena, setContrasena] = useState('')
     const [errorCorreo, setErrorCorreo] = useState('')
     const [errorContrasena, setErrorContrasena] = useState('')
+    const [mensajeConfirmacion, setMensajeConfirmacion] = useState('')
 
 
     function alclickear(evento) {
@@ -19,7 +20,10 @@ function FormularioLogin(props) {
         setErrorCorreo(mensajeCorreo)
         setErrorContrasena(mensajeContrasena)
         if (mensajeContrasena == '' && mensajeCorreo == '') {
+            setMensajeConfirmacion('Login exitoso')
             props.onLogin(correo, contrasena);
+        } else {
+            setMensajeConfirmacion('')
         }
     }
     return (<Form id="login" noValidate onSubmit={alclickear}>
@@ -51,7 +55,7 @@ function FormularioLogin(props) {
             className="w-100 mt-2"
         />
 
-        <p id="mensaje-confirmacion" className="mt-3 text-center"></p>
+        <p id="mensaje-confirmacion" className="mt-3 text-center">{mensajeConfirmacion}</p>
     </Form>);
 }
 export default FormularioLogin;

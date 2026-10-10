@@ -4,7 +4,7 @@ import FormularioLogin from "../components/organisms/FormularioLogin";
 function Login(props) {
 
     function alIniciarSesion(correo, contrasena) {
-        alert(`correo: ${correo}, contrasena ${contrasena}`);
+        // alert(`correo: ${correo}, contrasena ${contrasena}`); Aqui se verificara la cuenta cuando exista el services
     }
 
     return (
