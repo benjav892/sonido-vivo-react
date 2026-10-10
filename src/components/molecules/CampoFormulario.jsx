@@ -12,7 +12,7 @@ function CampoFormulario(props) {
                 id={props.id}
                 requerido={props.requerido}
             />
-            <span className="text-danger error" id={`error-${props.id}`}></span>
+            <span className="text-danger error" id={`error-${props.id}`}>{props.error}</span>
         </Form.Group>
     );
 }
