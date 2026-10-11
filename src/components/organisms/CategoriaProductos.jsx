@@ -1,21 +1,26 @@
 import { Card } from 'react-bootstrap';
 import categorias from '../../data/categorias.json'
 import TarjetaCategoria from '../molecules/TarjetaCategoria';
-
+import { Container, Row, Col } from "react-bootstrap";
 
 function CategoriaProductos() {
     return (
         <Card>
             <h2>Categorías</h2>
-            {categorias.map((categoria) => (
-                <TarjetaCategoria
-                    key={categoria.id}
-                    src={categoria.src}
-                    alt={categoria.alt}
-                    texto={categoria.texto}
+            <Row>
 
-                />
-            ))}
+                {categorias.map((categoria) => (
+                    <Col key={categoria.id} xs={12} md={6} lg={4}>
+                        <TarjetaCategoria
+                            src={categoria.src}
+                            alt={categoria.alt}
+                            texto={categoria.texto}
+
+                        />
+                    </Col>
+                ))}
+
+            </Row>
         </Card>
     )
 
