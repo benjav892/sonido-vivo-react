@@ -10,22 +10,24 @@ import Registro from "./pages/Registro";
 import PaginaInicioAdministrador from "./pages/PaginaInicioAdministrador";
 import PaginaGestionUsuarios from "./pages/PaginaGestionUsuarios";
 import PaginaGestionInventario from "./pages/PaginaGestionInventario";
-
+import { UsuariosProvider } from "./context/UsuariosContext";
 
 function App() {
     return (
-        <BrowserRouter>
-            <Routes>
-                <Route path="/" element={<Inicio />} />
-                <Route path="/login" element={<Login />} />
-                <Route path="/catalogo" element={<Catalogo />} />
-                <Route path="/registro" element={<Registro />} />
+        <UsuariosProvider>
+            <BrowserRouter>
+                <Routes>
+                    <Route path="/" element={<Inicio />} />
+                    <Route path="/login" element={<Login />} />
+                    <Route path="/catalogo" element={<Catalogo />} />
+                    <Route path="/registro" element={<Registro />} />
 
-                <Route path="/admin" element={<PaginaInicioAdministrador />} />
-                <Route path="/admin/usuarios" element={<PaginaGestionUsuarios />} />
-                <Route path="/admin/inventario" element={<PaginaGestionInventario />} />
-            </Routes>
-        </BrowserRouter>
+                    <Route path="/admin" element={<PaginaInicioAdministrador />} />
+                    <Route path="/admin/usuarios" element={<PaginaGestionUsuarios />} />
+                    <Route path="/admin/inventario" element={<PaginaGestionInventario />} />
+                </Routes>
+            </BrowserRouter>
+        </UsuariosProvider>
     );
 }
 
