@@ -13,7 +13,7 @@ function Navbar() {
                 <Link to="/blog">Blog</Link>
                 <Link to="/contactos">Contactos</Link>
                 <Link to="/login">Iniciar sesion</Link>
-                <Link to="/registro-usuario">Registrar usuario</Link>
+                <Link to="/registro">Registrar usuario</Link>
             </nav>
         </header>
     )
