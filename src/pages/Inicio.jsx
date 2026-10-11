@@ -2,6 +2,7 @@ import Navbar from '../components/organisms/Navbar';
 import CategoriaProductos from '../components/organisms/CategoriaProductos';
 import Footer from '../components/organisms/Footer';
 import { Container, Row, Col } from "react-bootstrap";
+import './Inicio.css';
 
 function Inicio() {
     return (

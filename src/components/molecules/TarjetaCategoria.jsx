@@ -6,7 +6,7 @@ function TarjetaCategoria(props) {
 
     return (
 
-        <Card>
+        <Card className="tarjeta-categoria h-100">
             <ImagenInstrumento src={props.src} alt={props.alt} />
             <DescInstrumento texto={props.texto} />
         </Card>
