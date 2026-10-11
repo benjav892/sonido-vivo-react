@@ -1,33 +1,80 @@
-// src/components/paginas/PaginaGestionInventario.jsx
-import PlantillaAdministrador from "../components/templates/PlantillaAdministrador";
-import BarraLateral from "../components/organisms/BarraLateral";
-import Titulo from "../components/atoms/Title";
+// src/pages/PaginaGestionInventario.jsx
+import { useState } from 'react'; // 1. Importación agregada
+import PlantillaAdministrador from '../components/templates/PlantillaAdministrador';
+import EncabezadoSeccion from '../components/molecules/EncabezadoSeccion';
+import BarraBusqueda from '../components/molecules/BarraBusqueda';
+import TablaDinamica from '../components/organisms/TablaDinamica';
+import Boton from '../components/atoms/Boton'; 
 
-function PaginaGestionInventario(props) {
-  const tituloMarca = props.tituloMarca || <>Sonido <br /> Vivo</>;
+const productosMock = [
+    { nombre: "Guitarra Eléctrica Fender", codigo: "001", categoria: "Instrumentos de Cuerda", precio: 699990, stock: 10 },
+    { nombre: "Bajo Eléctrico Fender", codigo: "002", categoria: "Instrumentos de Cuerda", precio: 849990, stock: 5 },
+];
 
-  const opcionesMenu = [
-    { id: 1, texto: "Inicio", ruta: "/admin" },
-    { id: 2, texto: "Gestión de usuarios", ruta: "/admin/usuarios" },
-    { id: 3, texto: "Gestión de inventario", ruta: "/admin/inventario" }
-  ];
+const itemsMenu = [
+    { texto: 'Inicio', ruta: '/admin' },
+    { texto: 'Gestión de usuarios', ruta: '/admin/usuarios' },
+    { texto: 'Gestión de inventario', ruta: '/admin/inventario' }
+];
 
-  const sidebar = (
-    <BarraLateral tituloMarca={tituloMarca} items={opcionesMenu} />
-  );
+function PaginaGestionInventario() {
+    const [busqueda, setBusqueda] = useState("");
 
-  return (
-    <PlantillaAdministrador barraLateral={sidebar}>
-      <header className="mb-4">
-        <Titulo nivel={2} texto="Gestión de Inventario" className="text-dark" />
-        <p className="text-muted">Módulo CRUD para administración de catálogo/inventario.</p>
-      </header>
+    const productosFiltrados = productosMock.filter((producto) => {
+        const textoBusqueda = busqueda.toLowerCase();
+        const coincideNombre = producto.nombre.toLowerCase().includes(textoBusqueda);
+        const coincideCodigo = producto.codigo.toLowerCase().includes(textoBusqueda);
+        
+        return coincideNombre || coincideCodigo;
+    });  
 
-      <div className="card shadow-sm p-4">
-        <p className="m-0">Tabla y formulario de inventario (CRUD)</p>
-      </div>
-    </PlantillaAdministrador>
-  );
+    const columnasInventario = [
+        { titulo: 'Nombre', llave: 'nombre' },
+        { titulo: 'Cod. Producto', llave: 'codigo' },
+        { titulo: 'Categoría', llave: 'categoria' },
+        { 
+            titulo: 'Precio', 
+            llave: 'precio', 
+            render: (producto) => `$${producto.precio.toLocaleString()}` 
+        },
+        { 
+            titulo: 'Stock', 
+            llave: 'stock', 
+            claseCelda: 'text-danger fw-bold' 
+        },
+        { 
+            titulo: 'Acciones', 
+            llave: 'acciones',
+            claseEncabezado: 'text-center',
+            claseCelda: 'text-center',
+            render: () => (
+                <>
+                    <Boton variante="light" texto="Agregar" className="btn-sm border me-1" />
+                    <Boton variante="light" texto="Editar" className="btn-sm border me-1" />
+                    <Boton variante="light" texto="Eliminar" className="btn-sm border" />
+                </>
+            )
+        }
+    ];
+
+    return (
+        <PlantillaAdministrador>
+            <EncabezadoSeccion 
+                titulo="Gestión de Inventario" 
+                textoBoton="AGREGAR PRODUCTO" 
+            />
+            <BarraBusqueda 
+                placeholder="Buscar por nombre o código" 
+                textoBoton="FILTRAR" 
+                valor={busqueda} 
+                onChange={(e) => setBusqueda(e.target.value)} 
+            />
+            
+
+            <TablaDinamica columnas={columnasInventario} datos={productosFiltrados} />
+            
+        </PlantillaAdministrador>
+    );
 }
 
 export default PaginaGestionInventario;
