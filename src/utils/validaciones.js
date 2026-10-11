@@ -15,8 +15,22 @@ export function validarContrasena(contrasena) {
     const LARGO_MAX_CONTRASENA = 64;
 
     if (contrasena.length > LARGO_MAX_CONTRASENA || contrasena.length < LARGO_MIN_CONTRASENA) {
-        return "Contrasena no valida"
+        return "Contrasena no valida";
     } else {
         return '';
     }
+}
+
+export function validarNombre(nombre) {
+    if (nombre.trim() == '') {
+        return "Nombre no valido";
+    }
+    return '';
+}
+
+export function validarConfirmarContrasena(contrasena, confirmar) {
+    if (!confirmar || contrasena !== confirmar) {
+        return "Las contrasenas no coinciden";
+    }
+    return '';
 }
