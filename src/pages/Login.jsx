@@ -1,12 +1,22 @@
 import { Container, Row, Col } from "react-bootstrap";
 import FormularioLogin from "../components/organisms/FormularioLogin";
 import { useNavigate } from "react-router-dom";
+import { autenticarUsuario } from "../services/usuarioService";
 
 function Login(props) {
     const navigate = useNavigate()
     function alIniciarSesion(correo, contrasena) {
-        navigate('/')
-        // alert(`correo: ${correo}, contrasena ${contrasena}`); Aqui se verificara la cuenta cuando exista el services
+        const usuarioEncontrado = autenticarUsuario(correo, contrasena)
+        if (usuarioEncontrado) {
+            if (usuarioEncontrado.rol === 'Administrador') {
+                navigate('/admin')
+            } else {
+                navigate('/')
+            }
+            return true
+        } else {
+            return false
+        }
     }
 
     return (
