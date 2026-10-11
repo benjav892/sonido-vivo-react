@@ -1,0 +1,23 @@
+[
+    {
+        "id": 1,
+        "nombre": "Benjamin",
+        "correo": "benja@gmail.com",
+        "contrasena": "benjamin123",
+        "rol": "Administrador"
+    },
+    {
+        "id": 2,
+        "nombre": "Camilo",
+        "correo": "c.ve@duoc.cl",
+        "contrasena": "camilo123",
+        "rol": "Vendedor"
+    },
+    {
+        "id": 3,
+        "nombre": "sebastian",
+        "correo": "seb.T@profesor.duoc.cl",
+        "contrasena": "seba123",
+        "rol": "Cliente"
+    }
+]
