@@ -1,0 +1,28 @@
+[
+  {
+    "id": 1,
+    "titulo": "CASO CURIOSO #1: La guitarra acústica y la inmersión narrativa",
+    "descCorta": "Exploramos cómo los juegos de mundo abierto y ritmo pausado utilizan guitarras de cuerdas de acero, banjos y percusiones sutiles para crear atmósferas profundas. Un repaso a los paisajes sonoros que acompañan la soledad y la exploración del jugador.",
+    "imagen": "/img/blog-1.jpg",
+    "fecha": "6 de Septiembre, 2026",
+    "autor": "Redacción Sonido Vivo",
+    "contenido": [
+      "Cuando pensamos en el diseño sonoro de experiencias narrativas para un solo jugador, a menudo nos imaginamos grandes orquestas. Sin embargo, en los últimos años, hemos visto cómo el sonido orgánico e imperfecto de una guitarra de cuerdas de acero o un banjo puede generar una atmósfera inigualable.",
+      "Tomemos como ejemplo las vastas llanuras y la exploración sosegada que proponen sagas como Red Dead Redemption. En estos paisajes inmensos, la música no busca apresurar al jugador ni fomentar un ritmo competitivo; por el contrario, unos simples acordes de guitarra acústica, grabados capturando el roce de los dedos sobre las cuerdas, invitan a la pausa y a la inmersión total en el entorno.",
+      "En Sonido Vivo recibimos constantemente a músicos que buscan recrear estas atmósferas envolventes. Para lograr esa resonancia y calidez, recomendamos instrumentos con maderas ricas como la caoba o el abeto macizo, que proyectan esas frecuencias bajas y medias tan características de los paisajes sonoros más melancólicos y profundos."
+    ]
+  },
+  {
+    "id": 2,
+    "titulo": "CASO CURIOSO #2: El hardware detrás del Retro Gaming",
+    "descCorta": "Un viaje por la nostalgia sonora. Exploramos cómo los chips de sonido de las consolas clásicas limitaban pero a la vez potenciaban la creatividad musical, sentando las bases de la música electrónica de 8 y 16 bits que hoy coleccionamos.",
+    "imagen": "/img/blog-2.jpg",
+    "fecha": "5 de Septiembre, 2026",
+    "autor": "Redacción Sonido Vivo",
+    "contenido": [
+      "El coleccionismo retro no solo se trata de rescatar viejos polígonos; es también una apreciación profunda del audio analógico y de cómo los compositores hacían magia con recursos técnicos limitados.",
+      "Disfrutar de las bandas sonoras originales de los primeros títulos de la saga God of War, por ejemplo, es una experiencia que cambia drásticamente dependiendo del hardware. Muchos puristas dedican horas a buscar la configuración perfecta para revivir estas atmósferas acústicas, priorizando una imagen rica en detalles —el \"modo calidad\" absoluto— mediante el uso de cables por componentes originales conectados a pesados televisores CRT (como los clásicos Panasonic).",
+      "Esa fidelidad visual viene acompañada de un sonido sin compresión moderna. Los chips de audio integrados en las consolas de sexta generación entregaban un rango dinámico que hoy, al conectarlos a los amplificadores análogos que vendemos en Sonido Vivo, demuestran por qué la tecnología clásica sigue siendo el estándar de oro para los audiófilos y coleccionistas exigentes."
+    ]
+  }
+]
