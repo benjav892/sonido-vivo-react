@@ -8,7 +8,8 @@
     "Stock": 8,
     "Precio (CLP)": 129990,
     "Descripción breve": "Tapa de abeto, aros y fondo de meranti. Ideal para iniciantes.",
-    "Stock minimo": 3
+    "Stock minimo": 3,
+    "Imagen": "/img/yamaha-f310.png"
   },
   {
     "Código": "GA002",
@@ -63,7 +64,8 @@
     "Stock": 5,
     "Precio (CLP)": 249990,
     "Descripción breve": "Cuerpo de álamo, mástil de arce, pastillas SSS.",
-    "Stock minimo": 2
+    "Stock minimo": 2,
+    "Imagen": "/img/squier-affinity-strat.png"
   },
   {
     "Código": "GE002",
@@ -118,7 +120,8 @@
     "Stock": 5,
     "Precio (CLP)": 299990,
     "Descripción breve": "Pickup PJ, cuerpo álamo, mástil arce.",
-    "Stock minimo": 2
+    "Stock minimo": 2,
+    "Imagen": "/img/squier-affinity-pj.png"
   },
   {
     "Código": "BA002",
@@ -151,7 +154,8 @@
     "Stock": 2,
     "Precio (CLP)": 599990,
     "Descripción breve": "Incluye stands, platillos y pedal de bombo.",
-    "Stock minimo": 2
+    "Stock minimo": 2,
+    "Imagen": "/img/pearl-roadshow.png"
   },
   {
     "Código": "BT002",
@@ -206,7 +210,8 @@
     "Stock": 4,
     "Precio (CLP)": 249990,
     "Descripción breve": "61 teclas sensibles al tacto,622 voces.",
-    "Stock minimo": 2
+    "Stock minimo": 2,
+    "Imagen": "/img/yamaha-psre373.png"
   },
   {
     "Código": "TC002",
@@ -250,7 +255,8 @@
     "Stock": 5,
     "Precio (CLP)": 99990,
     "Descripción breve": "15W, distorsión incorporada, entrada auxiliar.",
-    "Stock minimo": 2
+    "Stock minimo": 2,
+    "Imagen": "/img/fender-frontman-15g.png"
   },
   {
     "Código": "AM002",
