@@ -1,17 +1,24 @@
-// src/components/paginas/PaginaGestionUsuarios.jsx
-import PlantillaAdministrador from "../components/templates/PlantillaAdministrador";
-import Titulo from "../components/atoms/Title";
-import { useUsuarios } from "../context/UsuariosContext";
-import TablaDinamica from '../components/organisms/TablaDinamica';
-import Boton from '../components/atoms/Boton';
+// src/pages/PaginaGestionUsuarios.jsx
 import { useState } from "react";
+import { useUsuarios } from "../context/UsuariosContext";
+import PlantillaAdministrador from "../components/templates/PlantillaAdministrador";
+import EncabezadoSeccion from "../components/molecules/EncabezadoSeccion";
+import BarraBusqueda from "../components/molecules/BarraBusqueda";
+import TablaDinamica from "../components/organisms/TablaDinamica";
 import FormularioUsuario from "../components/organisms/FormularioUsuario";
+import Boton from "../components/atoms/Boton";
 
-function PaginaGestionUsuarios(props) {
-
+function PaginaGestionUsuarios() {
   const [mostrarFormulario, setMostrarFormulario] = useState(false)
   const [usuarioEditando, setUsuarioEditando] = useState(null)
+  const [busqueda, setBusqueda] = useState('')
   const { usuarios, crear, actualizar, eliminar } = useUsuarios()
+
+  const texto = busqueda.toLowerCase()
+  const usuariosFiltrados = usuarios.filter((u) =>
+    (u.nombre ?? '').toLowerCase().includes(texto) ||
+    (u.correo ?? '').toLowerCase().includes(texto)
+  )
 
   function abrirNuevo() {
     setMostrarFormulario(true)
@@ -22,6 +29,7 @@ function PaginaGestionUsuarios(props) {
     setMostrarFormulario(true)
     setUsuarioEditando(usuario)
   }
+
   function cerrarFormulario() {
     setMostrarFormulario(false)
     setUsuarioEditando(null)
@@ -35,6 +43,7 @@ function PaginaGestionUsuarios(props) {
     }
     cerrarFormulario()
   }
+
   const columnas = [
     { titulo: 'Nombre', llave: 'nombre' },
     { titulo: 'Correo', llave: 'correo' },
@@ -51,13 +60,14 @@ function PaginaGestionUsuarios(props) {
   ]
 
   return (
-    <PlantillaAdministrador >
-      <header className="mb-4">
-        <Titulo nivel={2} texto="Gestión de Usuarios" className="text-dark" />
-        <p className="text-muted">Módulo CRUD para administración de usuarios.</p>
-        <Boton variante="success" texto="Nuevo usuario +" onClick={() => abrirNuevo()} />
+    <PlantillaAdministrador>
+      <EncabezadoSeccion
+        titulo="Gestión de Usuarios"
+        textoBoton="NUEVO USUARIO"
+        varianteBoton="success"
+        onClickBoton={abrirNuevo}
+      />
 
-      </header>
       {mostrarFormulario && (
         <div className="card shadow-sm p-4 mb-4">
           <FormularioUsuario
@@ -69,9 +79,15 @@ function PaginaGestionUsuarios(props) {
         </div>
       )}
 
-      <div className="card shadow-sm p-4">
-        <TablaDinamica columnas={columnas} datos={usuarios} />
-      </div>
+      <BarraBusqueda
+        placeholder="Buscar por nombre o correo"
+        valor={busqueda}
+        onChange={(evento) => setBusqueda(evento.target.value)}
+        textoBoton="LIMPIAR"
+        onBuscar={() => setBusqueda('')}
+      />
+
+      <TablaDinamica columnas={columnas} datos={usuariosFiltrados} />
     </PlantillaAdministrador>
   );
 }
