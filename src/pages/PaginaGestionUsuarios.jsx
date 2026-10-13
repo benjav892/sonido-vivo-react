@@ -5,12 +5,13 @@ import { useUsuarios } from "../context/UsuariosContext";
 import TablaDinamica from '../components/organisms/TablaDinamica';
 import Boton from '../components/atoms/Boton';
 import { useState } from "react";
+import FormularioUsuario from "../components/organisms/FormularioUsuario";
 
 function PaginaGestionUsuarios(props) {
 
-  const { usuarios, eliminar } = useUsuarios()
   const [mostrarFormulario, setMostrarFormulario] = useState(false)
   const [usuarioEditando, setUsuarioEditando] = useState(null)
+  const { usuarios, crear, actualizar, eliminar } = useUsuarios()
 
   function abrirNuevo() {
     setMostrarFormulario(true)
@@ -20,6 +21,19 @@ function PaginaGestionUsuarios(props) {
   function abrirEditar(usuario) {
     setMostrarFormulario(true)
     setUsuarioEditando(usuario)
+  }
+  function cerrarFormulario() {
+    setMostrarFormulario(false)
+    setUsuarioEditando(null)
+  }
+
+  function alGuardar(datos) {
+    if (usuarioEditando) {
+      actualizar(usuarioEditando.id, datos)
+    } else {
+      crear(datos)
+    }
+    cerrarFormulario()
   }
   const columnas = [
     { titulo: 'Nombre', llave: 'nombre' },
@@ -44,7 +58,16 @@ function PaginaGestionUsuarios(props) {
         <Boton variante="success" texto="Nuevo usuario +" onClick={() => abrirNuevo()} />
 
       </header>
-
+      {mostrarFormulario && (
+        <div className="card shadow-sm p-4 mb-4">
+          <FormularioUsuario
+            key={usuarioEditando?.id ?? 'nuevo'}
+            usuario={usuarioEditando}
+            onGuardar={alGuardar}
+            onCancelar={cerrarFormulario}
+          />
+        </div>
+      )}
 
       <div className="card shadow-sm p-4">
         <TablaDinamica columnas={columnas} datos={usuarios} />
