@@ -1,11 +1,14 @@
 import { Container, Row, Col } from "react-bootstrap";
 import FormularioRegistro from "../components/organisms/FormularioRegistro";
 import { useNavigate } from "react-router-dom";
+import { useUsuarios } from "../context/UsuariosContext";
 
-function Registro(props) {
+function Registro() {
     const navigate = useNavigate();
+    const { crear } = useUsuarios();
 
     function alCompletarRegistro(datosUsuario) {
+        crear({ ...datosUsuario, rol: 'Cliente' })
         navigate('/login');
     }
 

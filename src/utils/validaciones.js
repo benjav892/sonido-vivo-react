@@ -34,3 +34,10 @@ export function validarConfirmarContrasena(contrasena, confirmar) {
     }
     return '';
 }
+
+export function validarRol(rol) {
+    if (rol === '') {
+        return "Debe seleccionar un rol"
+    }
+    return ''
+}

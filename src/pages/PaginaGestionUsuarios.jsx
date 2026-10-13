@@ -1,32 +1,93 @@
-// src/components/paginas/PaginaGestionUsuarios.jsx
+// src/pages/PaginaGestionUsuarios.jsx
+import { useState } from "react";
+import { useUsuarios } from "../context/UsuariosContext";
 import PlantillaAdministrador from "../components/templates/PlantillaAdministrador";
-import BarraLateral from "../components/organisms/BarraLateral";
-import Titulo from "../components/atoms/Title";
+import EncabezadoSeccion from "../components/molecules/EncabezadoSeccion";
+import BarraBusqueda from "../components/molecules/BarraBusqueda";
+import TablaDinamica from "../components/organisms/TablaDinamica";
+import FormularioUsuario from "../components/organisms/FormularioUsuario";
+import Boton from "../components/atoms/Boton";
 
-function PaginaGestionUsuarios(props) {
-  const tituloMarca = props.tituloMarca || <>Sonido <br /> Vivo</>;
+function PaginaGestionUsuarios() {
+  const [mostrarFormulario, setMostrarFormulario] = useState(false)
+  const [usuarioEditando, setUsuarioEditando] = useState(null)
+  const [busqueda, setBusqueda] = useState('')
+  const { usuarios, crear, actualizar, eliminar } = useUsuarios()
 
-  const opcionesMenu = [
-    { id: 1, texto: "Inicio", ruta: "/admin" },
-    { id: 2, texto: "Gestión de usuarios", ruta: "/admin/usuarios" },
-    { id: 3, texto: "Gestión de inventario", ruta: "/admin/inventario" }
-  ];
+  const texto = busqueda.toLowerCase()
+  const usuariosFiltrados = usuarios.filter((u) =>
+    (u.nombre ?? '').toLowerCase().includes(texto) ||
+    (u.correo ?? '').toLowerCase().includes(texto)
+  )
 
-  const sidebar = (
-    <BarraLateral tituloMarca={tituloMarca} items={opcionesMenu} />
-  );
+  function abrirNuevo() {
+    setMostrarFormulario(true)
+    setUsuarioEditando(null)
+  }
+
+  function abrirEditar(usuario) {
+    setMostrarFormulario(true)
+    setUsuarioEditando(usuario)
+  }
+
+  function cerrarFormulario() {
+    setMostrarFormulario(false)
+    setUsuarioEditando(null)
+  }
+
+  function alGuardar(datos) {
+    if (usuarioEditando) {
+      actualizar(usuarioEditando.id, datos)
+    } else {
+      crear(datos)
+    }
+    cerrarFormulario()
+  }
+
+  const columnas = [
+    { titulo: 'Nombre', llave: 'nombre' },
+    { titulo: 'Correo', llave: 'correo' },
+    { titulo: 'Rol', llave: 'rol' },
+    {
+      titulo: 'Acciones',
+      render: (usuario) => (
+        <>
+          <Boton className="me-2" variante="danger" texto="Eliminar" onClick={() => eliminar(usuario.id)} />
+          <Boton variante="warning" texto="Editar" onClick={() => abrirEditar(usuario)} />
+        </>
+      )
+    }
+  ]
 
   return (
-    <PlantillaAdministrador barraLateral={sidebar}>
-      <header className="mb-4">
-        <Titulo nivel={2} texto="Gestión de Usuarios" className="text-dark" />
-        <p className="text-muted">Módulo CRUD para administración de usuarios.</p>
-      </header>
+    <PlantillaAdministrador>
+      <EncabezadoSeccion
+        titulo="Gestión de Usuarios"
+        textoBoton="NUEVO USUARIO"
+        varianteBoton="success"
+        onClickBoton={abrirNuevo}
+      />
 
-      {/* Aquí insertaremos el organismo del CRUD de Usuarios */}
-      <div className="card shadow-sm p-4">
-        <p className="m-0">Tabla y formulario de usuarios (CRUD)</p>
-      </div>
+      {mostrarFormulario && (
+        <div className="card shadow-sm p-4 mb-4">
+          <FormularioUsuario
+            key={usuarioEditando?.id ?? 'nuevo'}
+            usuario={usuarioEditando}
+            onGuardar={alGuardar}
+            onCancelar={cerrarFormulario}
+          />
+        </div>
+      )}
+
+      <BarraBusqueda
+        placeholder="Buscar por nombre o correo"
+        valor={busqueda}
+        onChange={(evento) => setBusqueda(evento.target.value)}
+        textoBoton="LIMPIAR"
+        onBuscar={() => setBusqueda('')}
+      />
+
+      <TablaDinamica columnas={columnas} datos={usuariosFiltrados} />
     </PlantillaAdministrador>
   );
 }
