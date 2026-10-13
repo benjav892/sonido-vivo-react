@@ -12,77 +12,103 @@ La aplicación permite iniciar sesión, explorar el catálogo, agregar productos
 al carrito y, para el rol administrador, gestionar el catálogo.
 
 ## Estructura del proyecto
-sonido-vivo-react
-├─ README.md
-├─ eslint.config.js
-├─ index.html
-├─ package-lock.json
-├─ package.json
-├─ public
-│  ├─ Categorias
-│  │  ├─ BajosElectricos.png
-│  │  ├─ GuitarraAcustica.png
+```
+sonido-vivo-react/
+├─ public/
+│  ├─ categorias/
 │  │  ├─ accesorios.png
 │  │  ├─ amplificador.png
+│  │  ├─ BajosElectricos.png
 │  │  ├─ bateria.png
 │  │  ├─ estudio.png
+│  │  ├─ GuitarraAcustica.png
 │  │  ├─ guitarraElectrica.png
 │  │  ├─ microfonos.png
 │  │  ├─ pedales.png
 │  │  └─ teclados.png
+│  ├─ img/
+│  │  ├─ fender-frontman-15g.png
+│  │  ├─ pearl-roadshow.png
+│  │  ├─ squier-affinity-pj.png
+│  │  ├─ squier-affinity-strat.png
+│  │  ├─ yamaha-f310.png
+│  │  └─ yamaha-psre373.png
 │  ├─ favicon.svg
-│  ├─ icons.svg
-│  └─ img
-│     ├─ fender-frontman-15g.png
-│     ├─ pearl-roadshow.png
-│     ├─ squier-affiinity-pj.png
-│     ├─ squier-affiinity-strat.png
-│     ├─ yamaha-f310.png
-│     └─ yamaha-psre373.png
-├─ src
-│  ├─ App.css
-│  ├─ App.jsx
-│  ├─ assets
+│  └─ icons.svg
+├─ src/
+│  ├─ assets/
 │  │  ├─ Logo.png
 │  │  ├─ hero.png
 │  │  ├─ react.svg
 │  │  └─ vite.svg
-│  ├─ components
-│  │  ├─ atoms
+│  ├─ components/
+│  │  ├─ atoms/
 │  │  │  ├─ Boton.jsx
 │  │  │  ├─ DescInstrumento.jsx
 │  │  │  ├─ ImagenInstrumento.jsx
-│  │  │  └─ InputFormulario.jsx
-│  │  ├─ molecules
+│  │  │  ├─ InputFormulario.jsx
+│  │  │  ├─ InputTexto.jsx
+│  │  │  ├─ Logo.jsx
+│  │  │  ├─ Selector.jsx
+│  │  │  └─ Title.jsx
+│  │  ├─ molecules/
+│  │  │  ├─ BarraBusqueda.jsx
 │  │  │  ├─ CampoFormulario.jsx
+│  │  │  ├─ CampoSelector.jsx
+│  │  │  ├─ EncabezadoMarca.jsx
+│  │  │  ├─ EncabezadoSeccion.jsx
+│  │  │  ├─ ItemBarraLateral.jsx
+│  │  │  ├─ StatCard.jsx
 │  │  │  ├─ TarjetaCategoria.jsx
 │  │  │  └─ TarjetaProducto.jsx
-│  │  ├─ organisms
+│  │  ├─ organisms/
+│  │  │  ├─ BarraLateral.jsx
 │  │  │  ├─ CategoriaProductos.jsx
 │  │  │  ├─ Footer.jsx
 │  │  │  ├─ FormularioLogin.jsx
+│  │  │  ├─ FormularioRegistro.jsx
+│  │  │  ├─ FormularioUsuario.jsx
 │  │  │  ├─ GrillaProductos.jsx
-│  │  │  └─ Navbar.jsx
-│  │  └─ templates
-│  │     └─ placeholder.txt
-│  ├─ context
-│  │  └─ placeholder.txt
-│  ├─ data
+│  │  │  ├─ MetricsGrid.jsx
+│  │  │  ├─ Navbar.jsx
+│  │  │  └─ TablaDinamica.jsx
+│  │  └─ templates/
+│  │     └─ PlantillaAdministrador.jsx
+│  ├─ context/
+│  │  ├─ ProductoContext.jsx
+│  │  └─ UsuariosContext.jsx
+│  ├─ data/
 │  │  ├─ catalogo.json
-│  │  └─ categorias.json
-│  ├─ index.css
-│  ├─ main.jsx
-│  ├─ pages
+│  │  ├─ categorias.json
+│  │  ├─ inventario.json
+│  │  └─ usuarios.json
+│  ├─ pages/
 │  │  ├─ Catalogo.css
 │  │  ├─ Catalogo.jsx
+│  │  ├─ Inicio.css
 │  │  ├─ Inicio.jsx
-│  │  └─ Login.jsx
-│  ├─ services
-│  │  └─ placeholder.txt
-│  └─ utils
-│     └─ placeholder.txt
+│  │  ├─ Login.jsx
+│  │  ├─ PaginaGestionInventario.jsx
+│  │  ├─ PaginaGestionUsuarios.jsx
+│  │  ├─ PaginaInicioAdministrador.jsx
+│  │  └─ Registro.jsx
+│  ├─ services/
+│  │  ├─ productoService.js
+│  │  └─ usuarioService.js
+│  ├─ utils/
+│  │  └─ validaciones.js
+│  ├─ App.css
+│  ├─ App.jsx
+│  ├─ index.css
+│  └─ main.jsx
+├─ .gitignore
+├─ eslint.config.js
+├─ index.html
+├─ package-lock.json
+├─ package.json
+├─ README.md
 └─ vite.config.js
-
+```
 ## Tecnologías
 - React + Vite
 - React Bootstrap
