@@ -1,9 +1,8 @@
-// src/services/productoService.js
 import productosIniciales from '../data/inventario.json'
 
 // CAMBIO DE CLAVE: Le ponemos 'productos_v2' para que el navegador borre 
 // cualquier error que haya guardado en pruebas anteriores y cargue todo limpio.
-const CLAVE = 'productos_v2' 
+const CLAVE = 'productos_v3' 
 
 function leer() {
   const guardado = localStorage.getItem(CLAVE)
@@ -20,7 +19,8 @@ function leer() {
       precio: prod["Precio (CLP)"], 
       stock: prod["Stock"],
       stockMinimo: prod["Stock minimo"],
-      descripcion: prod["Descripción breve"]
+      descripcion: prod["Descripción breve"],
+      imagen: prod["Imagen"] || "/img/placeholder.png" // placeholder por si algun producto no tiene foto
     }));
 
     localStorage.setItem(CLAVE, JSON.stringify(productosFormateados))
