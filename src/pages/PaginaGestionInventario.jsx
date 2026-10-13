@@ -1,32 +1,27 @@
 // src/pages/PaginaGestionInventario.jsx
-import { useState } from 'react'; // 1. Importación agregada
+import { useState } from 'react'; 
+import { useProductos } from '../context/ProductoContext'; 
 import PlantillaAdministrador from '../components/templates/PlantillaAdministrador';
 import EncabezadoSeccion from '../components/molecules/EncabezadoSeccion';
 import BarraBusqueda from '../components/molecules/BarraBusqueda';
 import TablaDinamica from '../components/organisms/TablaDinamica';
 import Boton from '../components/atoms/Boton'; 
 
-const productosMock = [
-    { nombre: "Guitarra Eléctrica Fender", codigo: "001", categoria: "Instrumentos de Cuerda", precio: 699990, stock: 10 },
-    { nombre: "Bajo Eléctrico Fender", codigo: "002", categoria: "Instrumentos de Cuerda", precio: 849990, stock: 5 },
-];
 
-const itemsMenu = [
-    { texto: 'Inicio', ruta: '/admin' },
-    { texto: 'Gestión de usuarios', ruta: '/admin/usuarios' },
-    { texto: 'Gestión de inventario', ruta: '/admin/inventario' }
-];
 
 function PaginaGestionInventario() {
     const [busqueda, setBusqueda] = useState("");
 
-    const productosFiltrados = productosMock.filter((producto) => {
+    const { productos } = useProductos();
+
+    const productosFiltrados = productos.filter((producto) => {
         const textoBusqueda = busqueda.toLowerCase();
-        const coincideNombre = producto.nombre.toLowerCase().includes(textoBusqueda);
-        const coincideCodigo = producto.codigo.toLowerCase().includes(textoBusqueda);
+        // Agregamos un condicional por seguridad por si el producto aún no se carga bien
+        const nombre = producto.nombre ? producto.nombre.toLowerCase() : "";
+        const codigo = producto.codigo ? producto.codigo.toLowerCase() : "";
         
-        return coincideNombre || coincideCodigo;
-    });  
+        return nombre.includes(textoBusqueda) || codigo.includes(textoBusqueda);
+    });
 
     const columnasInventario = [
         { titulo: 'Nombre', llave: 'nombre' },
@@ -41,6 +36,11 @@ function PaginaGestionInventario() {
             titulo: 'Stock', 
             llave: 'stock', 
             claseCelda: 'text-danger fw-bold' 
+        },
+        {
+            titulo: 'Stock Mínimo', 
+            llave: 'stockMinimo',
+            claseCelda: 'text-warning fw-bold'
         },
         { 
             titulo: 'Acciones', 
