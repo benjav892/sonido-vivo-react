@@ -1,24 +1,35 @@
-import { useState, useEffect } from 'react';
+import { useState } from 'react'; // <-- Importamos useState
 import { Container } from 'react-bootstrap';
 import Navbar from '../components/organisms/Navbar'; 
 import Footer from '../components/organisms/Footer';
 import GrillaProductos from '../components/organisms/GrillaProductos';
-import datosCatalogo from '../data/catalogo.json';
-import './Catalogo.css';
+import Title from '../components/atoms/Title';
+import { useProductos } from '../context/ProductoContext';
+import { useNavigate } from 'react-router-dom';
+import { puedeAgregarAlCarrito } from '../utils/flujoCompra';
+import './Catalogo.css'; 
 
 function Catalogo() {
-    const [productos, setProductos] = useState([]);
-    const [mensajeToast, setMensajeToast] = useState(''); // Estado para controlar el Toast
-
-    useEffect(() => {
-        setProductos(datosCatalogo);
-    }, []);
+    const { productos } = useProductos();
+    const navigate = useNavigate();
+    
+    // crear el estado para controlar el mensaje en pantalla
+    const [mensajeToast, setMensajeToast] = useState('');
 
     function alAgregarCarrito(codigo) {
         let carritoActual = JSON.parse(localStorage.getItem('carritoSonidoVivo')) || [];
         const productoEncontrado = productos.find(p => p.codigo === codigo);
 
         if (productoEncontrado) {
+            const validacion = puedeAgregarAlCarrito(productoEncontrado, 1, carritoActual);
+            
+            if (!validacion.valido) {
+                //mostrar el error usando Toast
+                setMensajeToast(validacion.mensaje);
+                setTimeout(() => setMensajeToast(''), 3000);
+                return; 
+            }
+
             const indexItem = carritoActual.findIndex(item => item.codigo === codigo);
             
             if (indexItem >= 0) {
@@ -29,11 +40,11 @@ function Catalogo() {
 
             localStorage.setItem('carritoSonidoVivo', JSON.stringify(carritoActual));
             window.dispatchEvent(new Event('storage'));
-
-            // mostrar el mensaje en el Toast
+            
+            // mostrar el mensaje de éxito usando el estado
             setMensajeToast(`${productoEncontrado.nombre} añadido al carrito.`);
-
-            // ocultar el Toast después de 3 segundos
+            
+            // borrar el mensaje después de 3 segundos (3000 milisegundos)
             setTimeout(() => {
                 setMensajeToast('');
             }, 3000);
@@ -41,17 +52,15 @@ function Catalogo() {
     }
 
     function alVerDetalle(codigo) {
-        alert(`Se abrirán los detalles del producto ${codigo}`);
+        navigate(`/producto/${codigo}`);
     }
 
     return (
         <>
             <Navbar />
-            
-            <main className="py-5 min-vh-100">
-                <Container id="catalogo">
-                    {/* Tu clase titulo-catalogo aplica el color #200347 */}
-                    <h1 className="titulo-catalogo fw-bold">Catálogo</h1>
+            <main className="py-5 min-vh-100" style={{ backgroundColor: 'rgb(207, 193, 228)' }}>
+                <Container>
+                    <Title texto="Catálogo" nivel={1} className="text-center mb-5 fw-bold" style={{color: '#200347'}} />
                     
                     <GrillaProductos 
                         productos={productos} 
@@ -61,7 +70,7 @@ function Catalogo() {
                 </Container>
             </main>
 
-            {/* Renderizado condicional del Toast*/}
+            {/* Renderizar el elemento visual solo si hay un mensaje escrito */}
             {mensajeToast !== '' && (
                 <div className="toast-mensaje">
                     {mensajeToast}
