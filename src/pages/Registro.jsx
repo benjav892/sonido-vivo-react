@@ -2,14 +2,19 @@ import { Container, Row, Col } from "react-bootstrap";
 import FormularioRegistro from "../components/organisms/FormularioRegistro";
 import { useNavigate } from "react-router-dom";
 import { useUsuarios } from "../context/UsuariosContext";
+import { existeCorreo } from "../services/usuarioService";
 
 function Registro() {
     const navigate = useNavigate();
     const { crear } = useUsuarios();
 
     function alCompletarRegistro(datosUsuario) {
+        if (existeCorreo(datosUsuario.correo)) {
+            return false
+        }
         crear({ ...datosUsuario, rol: 'Cliente' })
         navigate('/login');
+        return true
     }
 
     return (

@@ -41,3 +41,7 @@ export function validarRol(rol) {
     }
     return ''
 }
+
+export function existeCorreo(correo) {
+    return leer().some((u) => u.correo.toLowerCase() === correo.trim().toLowerCase())
+}
