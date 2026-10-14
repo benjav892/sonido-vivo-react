@@ -26,23 +26,6 @@ import { ProductosProvider } from "./context/ProductoContext";
 
 function App() {
     return (
-        <BrowserRouter>
-            <ProductosProvider>
-                <Routes>
-                    <Route path="/" element={<Inicio />} />
-                    <Route path="/login" element={<Login />} />
-                    <Route path="/catalogo" element={<Catalogo />} />
-                    <Route path="/producto/:codigo" element={<DetalleProducto />} />
-                    <Route path="/registro" element={<Registro />} />
-                    <Route path="/contacto" element={<Contacto />} />
-                    <Route path="/nosotros" element={<Nosotros />} />
-                    <Route path="/blogs" element={<Blogs />} />
-                    <Route path="/blog/:id" element={<DetalleBlog />} />
-                    <Route path="/carrito" element = {<Carrito/>} />
-                    <Route path="/checkout" element = {<Checkout/>} />
-                    <Route path="/respuesta-compra" element = {<RespuestaCompra/>} />
-                    <Route path="/mis-pedidos" element = {<MisPedidos/>} /> 
-                    
         <UsuariosProvider>
             <BrowserRouter>
                 <ProductosProvider>
@@ -50,7 +33,16 @@ function App() {
                         <Route path="/" element={<Inicio />} />
                         <Route path="/login" element={<Login />} />
                         <Route path="/catalogo" element={<Catalogo />} />
+                        <Route path="/producto/:codigo" element={<DetalleProducto />} />
                         <Route path="/registro" element={<Registro />} />
+                        <Route path="/contacto" element={<Contacto />} />
+                        <Route path="/nosotros" element={<Nosotros />} />
+                        <Route path="/blogs" element={<Blogs />} />
+                        <Route path="/blog/:id" element={<DetalleBlog />} />
+                        <Route path="/carrito" element={<Carrito />} />
+                        <Route path="/checkout" element={<Checkout />} />
+                        <Route path="/respuesta-compra" element={<RespuestaCompra />} />
+                        <Route path="/mis-pedidos" element={<MisPedidos />} />
 
                         <Route path="/admin" element={<PaginaInicioAdministrador />} />
                         <Route path="/admin/usuarios" element={<PaginaGestionUsuarios />} />
