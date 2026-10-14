@@ -48,3 +48,7 @@ export function autenticarUsuario(correo, contrasena) {
     const lista = leer()
     return lista.find((u) => u.correo == correo && u.contrasena === contrasena) ?? null
 }
+
+export function existeCorreo(correo) {
+    return leer().some((u) => u.correo.toLowerCase() === correo.trim().toLowerCase())
+}

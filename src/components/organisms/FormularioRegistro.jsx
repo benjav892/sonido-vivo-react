@@ -36,8 +36,13 @@ function FormularioRegistro(props) {
         setErrorConfirmar(mensajeConfirmar);
 
         if (mensajeNombre == '' && mensajeCorreo == '' && mensajeContrasena == '' && mensajeConfirmar == '') {
-            setMensajeConfirmacion('Registro exitoso');
-            props.onRegistro({ nombre, correo, contrasena });
+            const registrado = props.onRegistro({ nombre, correo, contrasena });
+            if (registrado) {
+                setMensajeConfirmacion('Registrado exitosamente')
+            } else {
+                setErrorCorreo('Correo ya registrado')
+                setMensajeConfirmacion('')
+            }
         } else {
             setMensajeConfirmacion('');
         }

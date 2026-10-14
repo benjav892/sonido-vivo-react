@@ -5,7 +5,7 @@ function Selector(props) {
         <Form.Select value={props.value} onChange={props.onChange} id={props.id}>
             <option value="">Seleccione...</option>
             {props.opciones.map((opcion) => (
-                <option key={opcion.key} value={opcion.value}>{opcion}</option>
+                <option key={opcion} value={opcion}>{opcion}</option>
             ))}
         </Form.Select>
     );
