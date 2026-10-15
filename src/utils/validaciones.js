@@ -45,3 +45,51 @@ export function validarRol(rol) {
 export function existeCorreo(correo) {
     return leer().some((u) => u.correo.toLowerCase() === correo.trim().toLowerCase())
 }
+// --- Validaciones para el Formulario de Productos ---
+export function validarNombreProducto(nombre) {
+    if (!nombre || nombre.trim() === '') {
+        return 'El nombre del producto es obligatorio';
+    }
+    return '';
+}
+
+export function validarCodigo(codigo) {
+    if (!codigo || codigo.trim() === '') {
+        return 'El código del producto es obligatorio';
+    }
+    return '';
+}
+
+export function validarCategoria(categoria) {
+    if (!categoria || categoria.trim() === '') {
+        return 'Debes seleccionar una categoría';
+    }
+    return '';
+}
+
+export function validarPrecio(precio) {
+    if (precio === '' || precio === null || precio === undefined) {
+        return 'El precio es obligatorio';
+    }
+    if (Number(precio) < 0) {
+        return 'El precio no puede ser negativo';
+    }
+    return '';
+}
+
+export function validarStock(stock) {
+    if (stock === '' || stock === null || stock === undefined) {
+        return 'El stock actual es obligatorio';
+    }
+    if (Number(stock) < 0) {
+        return 'El stock no puede ser negativo';
+    }
+    return '';
+}
+
+export function validarDescripcion(descripcion) {
+    if (!descripcion || descripcion.trim() === '') {
+        return 'La descripción es obligatoria';
+    }
+    return '';
+}
