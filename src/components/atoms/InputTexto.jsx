@@ -9,6 +9,7 @@ function InputTexto(props) {
             value={props.valor} 
             onChange={props.onChange}
             className={props.className}
+            required={props.requerido}
         />
     );
 }
