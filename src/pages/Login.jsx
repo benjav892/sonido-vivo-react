@@ -2,6 +2,7 @@ import { Container, Row, Col } from "react-bootstrap";
 import FormularioLogin from "../components/organisms/FormularioLogin";
 import { useNavigate } from "react-router-dom";
 import { autenticarUsuario } from "../services/usuarioService";
+import { useTituloPagina } from "../hooks/useTituloPagina";
 
 function Login(props) {
     const navigate = useNavigate()
@@ -18,7 +19,7 @@ function Login(props) {
             return false
         }
     }
-
+    useTituloPagina('Inicio de sesión')
     return (
         <Container className="mt-5">
             <Row className="justify-content-center">
