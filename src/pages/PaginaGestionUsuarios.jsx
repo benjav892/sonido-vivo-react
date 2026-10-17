@@ -7,6 +7,7 @@ import BarraBusqueda from "../components/molecules/BarraBusqueda";
 import TablaDinamica from "../components/organisms/TablaDinamica";
 import FormularioUsuario from "../components/organisms/FormularioUsuario";
 import Boton from "../components/atoms/Boton";
+import { useTituloPagina } from "../hooks/useTituloPagina";
 
 function PaginaGestionUsuarios() {
   const [mostrarFormulario, setMostrarFormulario] = useState(false)
@@ -58,7 +59,7 @@ function PaginaGestionUsuarios() {
       )
     }
   ]
-
+  useTituloPagina('Gestión de usuarios')
   return (
     <PlantillaAdministrador>
       <EncabezadoSeccion

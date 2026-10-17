@@ -3,6 +3,7 @@ import FormularioRegistro from "../components/organisms/FormularioRegistro";
 import { useNavigate } from "react-router-dom";
 import { useUsuarios } from "../context/UsuariosContext";
 import { existeCorreo } from "../services/usuarioService";
+import { useTituloPagina } from "../hooks/useTituloPagina";
 
 function Registro() {
     const navigate = useNavigate();
@@ -16,7 +17,7 @@ function Registro() {
         navigate('/login');
         return true
     }
-
+    useTituloPagina('Crear cuenta')
     return (
         <Container className="mt-5">
             <Row className="justify-content-center">
