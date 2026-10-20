@@ -10,17 +10,17 @@ function leer() {
   if (guardado === null) {
     // TRANSFORMACIÓN: Traducimos tu JSON al formato de React y le damos un ID
     const productosFormateados = productosIniciales.map((prod, index) => ({
-      id: index + 1, // <- Vital para el CRUD
-      codigo: prod["Código"], // <- Vital para el filtro
-      nombre: prod["Nombre del producto"], // <- Vital para el filtro
-      categoria: prod["Categoría"],
-      marca: prod["Marca"],
-      modelo: prod["Modelo"],
-      precio: prod["Precio (CLP)"], 
-      stock: prod["Stock"],
-      stockMinimo: prod["Stock minimo"],
-      descripcion: prod["Descripción breve"],
-      imagen: prod["Imagen"] || "/img/placeholder.png" // placeholder por si algun producto no tiene foto
+    id: index + 1,
+    codigo: prod.codigo,
+    nombre: prod.nombreDelProducto,
+    categoria: prod.categoria,
+    marca: prod.marca,
+    modelo: prod.modelo,
+    precio: prod.precioClp, 
+    stock: prod.stock,
+    stockMinimo: prod.stockMinimo,
+    descripcion: prod.descripcionBreve,
+    imagen: prod.imagen || "/img/placeholder.png"
     }));
 
     localStorage.setItem(CLAVE, JSON.stringify(productosFormateados))

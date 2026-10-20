@@ -113,7 +113,7 @@ export function FormularioProducto(props) {
                         etiqueta="URL de la Imagen (Opcional)"
                         valor={imagen}
                         onChange={(e) => setImagen(e.target.value)}
-                        placeholder="https://ejemplo.com/imagen.png"
+                        placeholder="/img/guitarra-stratocaster.png"
                     />
                 </Col>
             </Row>
