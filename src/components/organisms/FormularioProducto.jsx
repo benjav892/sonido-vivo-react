@@ -109,8 +109,8 @@ export function FormularioProducto(props) {
                 </Col>
                 <Col md="6">
                     <CampoInput 
-                        tipo="url"
-                        etiqueta="URL de la Imagen (Opcional)"
+                        tipo="text"
+                        etiqueta="Ruta de imagen (Opcional)"
                         valor={imagen}
                         onChange={(e) => setImagen(e.target.value)}
                         placeholder="/img/guitarra-stratocaster.png"
