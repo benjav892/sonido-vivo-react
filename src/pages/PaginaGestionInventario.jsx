@@ -8,7 +8,7 @@ import BarraBusqueda from '../components/molecules/BarraBusqueda';
 import TablaDinamica from '../components/organisms/TablaDinamica';
 import Boton from '../components/atoms/Boton'; 
 
-function PaginaGestionInventario() {
+export function PaginaGestionInventario() {
     const [busqueda, setBusqueda] = useState("");
 
     const { productos, eliminar, actualizar} = useProductos();
@@ -17,9 +17,13 @@ function PaginaGestionInventario() {
     const navigate = useNavigate(); 
 
     // 3. Creamos la función que maneja el redireccionamiento
-    const irAAgregarProducto = () => {
+    function irAAgregarProducto() {
         navigate('/admin/inventario/nuevo');
-    };
+    }
+
+    function irAEditarProducto(id) {
+        navigate(`/admin/inventario/editar/${id}`);
+    }
 
     const productosFiltrados = productos.filter((producto) => {
         const textoBusqueda = busqueda.toLowerCase();
@@ -62,7 +66,7 @@ function PaginaGestionInventario() {
                         className="btn-sm border me-1" 
                         onClick={() => actualizar(producto.id, { ...producto, stock: producto.stock + 1 })} 
                     />
-                    <Boton variante="warning" texto="Editar" className="btn-sm border me-1" />
+                    <Boton variante="warning" texto="Editar" className="btn-sm border me-1" onClick={() => irAEditarProducto(producto.id)} />
                     <Boton variante="danger" texto="Eliminar" className="btn-sm border" onClick={() => eliminar(producto.id)} />
                 </>
             )
@@ -89,4 +93,3 @@ function PaginaGestionInventario() {
     );
 }
 
-export default PaginaGestionInventario;

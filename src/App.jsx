@@ -18,8 +18,8 @@ import MisPedidos from "./pages/MisPedidos";
 // Componentes de Administración
 import PaginaInicioAdministrador from "./pages/PaginaInicioAdministrador";
 import PaginaGestionUsuarios from "./pages/PaginaGestionUsuarios";
-import PaginaGestionInventario from "./pages/PaginaGestionInventario";
-import PaginaAgregarProducto from "./pages/PaginaAgregarProducto";
+import {PaginaGestionInventario} from "./pages/PaginaGestionInventario";
+import {PaginaAgregarProducto} from "./pages/PaginaAgregarProducto";
 
 // Proveedores de contexto
 import { UsuariosProvider } from "./context/UsuariosContext";
@@ -49,6 +49,7 @@ function App() {
                         <Route path="/admin/usuarios" element={<PaginaGestionUsuarios />} />
                         <Route path="/admin/inventario" element={<PaginaGestionInventario />} />
                         <Route path="/admin/inventario/nuevo" element={<PaginaAgregarProducto />} />
+                        <Route path="/admin/inventario/editar/:id" element={<PaginaAgregarProducto />} />
                     </Routes>
                 </ProductosProvider>
             </BrowserRouter>
