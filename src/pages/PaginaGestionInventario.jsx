@@ -60,6 +60,12 @@ export function PaginaGestionInventario() {
             render: (producto) => (
                 <>
                     {/* También le pasamos la función al botón Agregar de la tabla */}
+                    <Boton
+                        variante="primary"
+                        texto="Detalle"
+                        className="btn-sm border me-1"
+                        onClick={() => navigate(`/admin/inventario/detalle/${producto.id}`)}
+                    />
                     <Boton 
                         variante="success" 
                         texto="Agregar" 

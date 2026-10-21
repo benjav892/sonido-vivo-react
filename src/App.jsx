@@ -18,6 +18,7 @@ import MisPedidos from "./pages/MisPedidos";
 // Componentes de Administración
 import PaginaInicioAdministrador from "./pages/PaginaInicioAdministrador";
 import PaginaGestionUsuarios from "./pages/PaginaGestionUsuarios";
+import PaginaDetalleProductoAdmin from "./pages/PaginaDetalleProductoAdmin";
 import {PaginaGestionInventario} from "./pages/PaginaGestionInventario";
 import {PaginaAgregarProducto} from "./pages/PaginaAgregarProducto";
 
@@ -50,6 +51,7 @@ function App() {
                         <Route path="/admin/inventario" element={<PaginaGestionInventario />} />
                         <Route path="/admin/inventario/nuevo" element={<PaginaAgregarProducto />} />
                         <Route path="/admin/inventario/editar/:id" element={<PaginaAgregarProducto />} />
+                        <Route path="/admin/inventario/detalle/:id" element={<PaginaDetalleProductoAdmin />} />
                     </Routes>
                 </ProductosProvider>
             </BrowserRouter>
