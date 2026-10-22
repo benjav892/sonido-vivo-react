@@ -42,9 +42,7 @@ export function validarRol(rol) {
     return ''
 }
 
-export function existeCorreo(correo) {
-    return leer().some((u) => u.correo.toLowerCase() === correo.trim().toLowerCase())
-}
+
 // --- Validaciones para el Formulario de Productos ---
 export function validarNombreProducto(nombre) {
     if (!nombre || nombre.trim() === '') {
