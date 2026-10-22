@@ -8,8 +8,10 @@ import TablaDinamica from "../components/organisms/TablaDinamica";
 import FormularioUsuario from "../components/organisms/FormularioUsuario";
 import Boton from "../components/atoms/Boton";
 import { useTituloPagina } from "../hooks/useTituloPagina";
+import { useNavigate } from "react-router-dom";
 
 function PaginaGestionUsuarios() {
+  const navigate = useNavigate()
   const [mostrarFormulario, setMostrarFormulario] = useState(false)
   const [usuarioEditando, setUsuarioEditando] = useState(null)
   const [busqueda, setBusqueda] = useState('')
@@ -55,6 +57,8 @@ function PaginaGestionUsuarios() {
         <>
           <Boton className="me-2" variante="danger" texto="Eliminar" onClick={() => eliminar(usuario.id)} />
           <Boton variante="warning" texto="Editar" onClick={() => abrirEditar(usuario)} />
+          <Boton className="me-2" variante="info" texto="Ver" onClick={() => navigate(`/admin/usuarios/detalle/${usuario.id}`)}
+          />
         </>
       )
     }
