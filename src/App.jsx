@@ -27,6 +27,7 @@ import { PaginaAgregarCategoria } from './pages/PaginaAgregarCategoria';
 // Proveedores de contexto
 import { UsuariosProvider } from "./context/UsuariosContext";
 import { ProductosProvider } from "./context/ProductoContext";
+import { CategoriasProvider } from './context/CategoriaContext';
 
 function App() {
     return (

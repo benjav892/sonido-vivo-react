@@ -38,7 +38,7 @@ export function PaginaAgregarProducto(props) {
 
             <div className="bg-white p-4 shadow-sm rounded border">
                 <FormularioProducto 
-                    datosFormulario={productoAEditar}
+                    datosIniciales={productoAEditar}
                     onSubmit={manejarEnvioExitoso}
                     onCancelar={manejarCancelar}
                 />
