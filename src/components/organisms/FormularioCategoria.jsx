@@ -1,27 +1,36 @@
-// src/components/organisms/FormularioCategoria.jsx
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import { Form } from 'react-bootstrap';
 import CampoFormulario from '../molecules/CampoFormulario';
 import Boton from '../atoms/Boton';
-import { validarNombre } from '../../utils/validaciones';
+import { validarNombreCategoria } from '../../utils/validacionesCategorias';
+import { useCategorias } from '../../context/CategoriaContext';
 
 function FormularioCategoria(props) {
-    const datosFormulario = props.datosFormulario;
-    const [nombre, setNombre] = useState(datosFormulario ? datosFormulario.texto : '');
+    const datosFormulario = props.datosFormulario || props.datosIniciales;
+    const { categorias } = useCategorias();
+
+    const [nombre, setNombre] = useState('');
     const [errorNombre, setErrorNombre] = useState('');
+
+    useEffect(() => {
+        if (datosFormulario) {
+            setNombre(datosFormulario.texto || '');
+        }
+    }, [datosFormulario]);
 
     function alEnviar(e) {
         e.preventDefault();
         
-        const errNom = validarNombre(nombre);
+        // Se valida contra la lista de categorías existentes pasando el ID si es edición
+        const errNom = validarNombreCategoria(nombre, categorias, datosFormulario?.id);
         setErrorNombre(errNom);
 
         if (!errNom) {
             props.onSubmit({
                 ...datosFormulario,
-                texto: nombre,
+                texto: nombre.trim(),
                 src: datosFormulario?.src || '/categorias/accesorios.png',
-                alt: nombre
+                alt: nombre.trim()
             });
         }
     }
@@ -42,6 +51,7 @@ function FormularioCategoria(props) {
                 <Boton 
                     texto="Cancelar" 
                     variante="secondary" 
+                    type="button"
                     onClick={props.onCancelar} 
                 />
                 <Boton 

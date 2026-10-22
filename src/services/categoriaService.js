@@ -36,3 +36,9 @@ export function actualizarCategoria(id, cambios) {
     guardar(lista);
     return lista.find((c) => c.id === id) ?? null;
 }
+
+export function eliminarCategoria(id) {
+    const lista = leer().filter((c) => c.id !== id);
+    guardar(lista);
+    return true;
+}
