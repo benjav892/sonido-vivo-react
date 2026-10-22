@@ -88,9 +88,10 @@ export function PaginaGestionInventario() {
             />
             <BarraBusqueda 
                 placeholder="Buscar por nombre o código" 
-                textoBoton="FILTRAR" 
+                textoBoton="LIMPIAR" 
                 valor={busqueda} 
                 onChange={(e) => setBusqueda(e.target.value)} 
+                onBuscar={() => setBusqueda('')}
             />
             
             <TablaDinamica columnas={columnasInventario} datos={productosFiltrados} />
