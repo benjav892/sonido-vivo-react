@@ -18,15 +18,15 @@ import MisPedidos from "./pages/MisPedidos";
 // Componentes de Administración
 import PaginaInicioAdministrador from "./pages/PaginaInicioAdministrador";
 import PaginaGestionUsuarios from "./pages/PaginaGestionUsuarios";
+import PaginaDetalleProductoAdmin from "./pages/PaginaDetalleProductoAdmin";
 import {PaginaGestionInventario} from "./pages/PaginaGestionInventario";
 import {PaginaAgregarProducto} from "./pages/PaginaAgregarProducto";
-import {PaginaGestionCategorias} from "./pages/PaginaGestionCategorias";
-import {PaginaAgregarCategoria} from "./pages/PaginaAgregarCategoria";
+import { PaginaGestionCategorias } from './pages/PaginaGestionCategorias';
+import { PaginaAgregarCategoria } from './pages/PaginaAgregarCategoria';
 
 // Proveedores de contexto
 import { UsuariosProvider } from "./context/UsuariosContext";
 import { ProductosProvider } from "./context/ProductoContext";
-import { CategoriasProvider } from "./context/CategoriaContext";
 
 function App() {
     return (
@@ -48,13 +48,15 @@ function App() {
                             <Route path="/checkout" element={<Checkout />} />
                             <Route path="/respuesta-compra" element={<RespuestaCompra />} />
                             <Route path="/mis-pedidos" element={<MisPedidos />} />
-        
+
                             <Route path="/admin" element={<PaginaInicioAdministrador />} />
                             <Route path="/admin/usuarios" element={<PaginaGestionUsuarios />} />
                             <Route path="/admin/inventario" element={<PaginaGestionInventario />} />
-                            <Route path="/admin/categorias" element={<PaginaGestionCategorias />} />
                             <Route path="/admin/inventario/nuevo" element={<PaginaAgregarProducto />} />
                             <Route path="/admin/inventario/editar/:id" element={<PaginaAgregarProducto />} />
+                            <Route path="/admin/inventario/detalle/:id" element={<PaginaDetalleProductoAdmin />} />
+
+                            <Route path="/admin/categorias" element={<PaginaGestionCategorias />} />
                             <Route path="/admin/categorias/nueva" element={<PaginaAgregarCategoria />} />
                             <Route path="/admin/categorias/editar/:id" element={<PaginaAgregarCategoria />} />
                         </Routes>
