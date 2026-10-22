@@ -7,7 +7,8 @@ import logo from '../../assets/Logo.png'; // Ajusta la ruta a tu imagen si la us
 const itemsMenu = [
     { texto: 'Inicio', ruta: '/admin' },
     { texto: 'Gestión de usuarios', ruta: '/admin/usuarios' },
-    { texto: 'Gestión de inventario', ruta: '/admin/inventario' }
+    { texto: 'Gestión de inventario', ruta: '/admin/inventario' },
+    { texto: 'Gestión de categorías', ruta: '/admin/categorias' }
 ];
 
 function PlantillaAdministrador(props) {
