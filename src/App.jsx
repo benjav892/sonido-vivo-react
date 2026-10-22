@@ -19,10 +19,11 @@ import MisPedidos from "./pages/MisPedidos";
 import PaginaInicioAdministrador from "./pages/PaginaInicioAdministrador";
 import PaginaGestionUsuarios from "./pages/PaginaGestionUsuarios";
 import PaginaDetalleProductoAdmin from "./pages/PaginaDetalleProductoAdmin";
-import {PaginaGestionInventario} from "./pages/PaginaGestionInventario";
-import {PaginaAgregarProducto} from "./pages/PaginaAgregarProducto";
+import { PaginaGestionInventario } from "./pages/PaginaGestionInventario";
+import { PaginaAgregarProducto } from "./pages/PaginaAgregarProducto";
 import { PaginaGestionCategorias } from './pages/PaginaGestionCategorias';
 import { PaginaAgregarCategoria } from './pages/PaginaAgregarCategoria';
+import PaginaDetalleUsuario from "./pages/PaginaDetalleUsuario";
 
 // Proveedores de contexto
 import { UsuariosProvider } from "./context/UsuariosContext";
@@ -52,6 +53,7 @@ function App() {
 
                             <Route path="/admin" element={<PaginaInicioAdministrador />} />
                             <Route path="/admin/usuarios" element={<PaginaGestionUsuarios />} />
+                            <Route path="/admin/usuarios/detalle/:id" element={<PaginaDetalleUsuario />} />
                             <Route path="/admin/inventario" element={<PaginaGestionInventario />} />
                             <Route path="/admin/inventario/nuevo" element={<PaginaAgregarProducto />} />
                             <Route path="/admin/inventario/editar/:id" element={<PaginaAgregarProducto />} />
