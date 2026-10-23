@@ -9,14 +9,13 @@ import { useTituloPagina } from '../hooks/useTituloPagina';
 
 function MisPedidos() {
     useTituloPagina('Mis Pedidos');
-
-
+    
     const { usuario, estaAutenticado } = useAuth();
     const { pedidos } = usePedidos();
 
     // filtrar dinámicamente usando el estado global de pedidos
     const misPedidosFiltrados = (estaAutenticado && usuario) 
-        ? pedidos.filter(p => p.clienteId === usuario.email)
+        ? pedidos.filter(p => p.clienteId === usuario.correo)
         : [];
 
     const colorEstado = (estado) => {

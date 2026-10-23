@@ -12,6 +12,7 @@ import { usePedidos } from '../context/PedidosContext';
 import { useTituloPagina } from '../hooks/useTituloPagina';
 
 function Checkout() {
+
     useTituloPagina('Checkout');
 
     const [carrito, setCarrito] = useState([]);
@@ -44,12 +45,13 @@ function Checkout() {
 
         if (resultado.exito) {
             const nuevoPedido = {
-                id: `ORD-${Math.floor(Math.random() * 10000)}`,
-                fecha: new Date().toLocaleDateString(),
+                id: `ORD-${Date.now()}`,
+                fecha: new Date().toISOString().slice(0, 10),
                 estado: 'En preparación',
                 total: carrito.reduce((acc, item) => acc + (item.precio * item.cantidad), 0),
                 tipoDespacho,
-                clienteId: usuario.email 
+                clienteId: usuario.correo,
+                items: carrito.map(i => ({ codigo: i.codigo, nombre: i.nombre, cantidad: i.cantidad, precio: i.precio }))
             };
             
             agregarPedido(nuevoPedido); 
