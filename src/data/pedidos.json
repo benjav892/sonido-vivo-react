@@ -1,0 +1,26 @@
+[
+  {
+    "id": "ORD-1234",
+    "fecha": "2026-10-15",
+    "estado": "Entregado",
+    "total": 129990,
+    "tipoDespacho": "despacho",
+    "clienteId": "cliente1@correo.cl"
+  },
+  {
+    "id": "ORD-5678",
+    "fecha": "2026-10-21",
+    "estado": "Despachado",
+    "total": 35000,
+    "tipoDespacho": "retiro",
+    "clienteId": "cliente2@correo.cl"
+  },
+  {
+    "id": "ORD-9101",
+    "fecha": "2026-10-23",
+    "estado": "En preparación",
+    "total": 189990,
+    "tipoDespacho": "despacho",
+    "clienteId": "cliente1@correo.cl"
+  }
+]
