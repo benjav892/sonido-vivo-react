@@ -5,7 +5,7 @@
     "estado": "Entregado",
     "total": 129990,
     "tipoDespacho": "despacho",
-    "clienteId": "cliente1@correo.cl"
+    "clienteId": "seb.T@profesor.duoc.cl"
   },
   {
     "id": "ORD-5678",
@@ -13,7 +13,7 @@
     "estado": "Despachado",
     "total": 35000,
     "tipoDespacho": "retiro",
-    "clienteId": "cliente2@correo.cl"
+    "clienteId": "c.ve@duoc.cl"
   },
   {
     "id": "ORD-9101",
@@ -21,6 +21,6 @@
     "estado": "En preparación",
     "total": 189990,
     "tipoDespacho": "despacho",
-    "clienteId": "cliente1@correo.cl"
+    "clienteId": "seb.T@profesor.duoc.cl"
   }
 ]
