@@ -4,8 +4,11 @@ import Navbar from '../components/organisms/Navbar';
 import Footer from '../components/organisms/Footer';
 import Title from '../components/atoms/Title';
 import Boton from '../components/atoms/Boton';
+import { useTituloPagina } from '../hooks/useTituloPagina';
 
 function RespuestaCompra() {
+    useTituloPagina('Resultado de tu compra');
+
     const location = useLocation();
     const navigate = useNavigate();
     

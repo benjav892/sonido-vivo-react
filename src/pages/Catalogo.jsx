@@ -1,4 +1,4 @@
-import { useState } from 'react'; // <-- Importamos useState
+import { useState } from 'react';
 import { Container } from 'react-bootstrap';
 import Navbar from '../components/organisms/Navbar'; 
 import Footer from '../components/organisms/Footer';
@@ -8,8 +8,11 @@ import { useProductos } from '../context/ProductoContext';
 import { useNavigate } from 'react-router-dom';
 import { puedeAgregarAlCarrito } from '../utils/flujoCompra';
 import './Catalogo.css'; 
+import { useTituloPagina } from '../hooks/useTituloPagina';
 
 function Catalogo() {
+    useTituloPagina('Catalogo');
+
     const { productos } = useProductos();
     const navigate = useNavigate();
     

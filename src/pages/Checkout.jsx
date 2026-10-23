@@ -9,8 +9,11 @@ import { useProductos } from '../context/ProductoContext';
 import { procesarConfirmacionPedido } from '../utils/flujoCompra';
 import { useAuth } from '../context/AuthContext';
 import { usePedidos } from '../context/PedidosContext';
+import { useTituloPagina } from '../hooks/useTituloPagina';
 
 function Checkout() {
+    useTituloPagina('Checkout');
+
     const [carrito, setCarrito] = useState([]);
     const [tipoDespacho, setTipoDespacho] = useState('despacho');
     const [metodoPago, setMetodoPago] = useState('tarjeta');

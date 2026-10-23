@@ -5,8 +5,12 @@ import Title from '../components/atoms/Title';
 import Precio from '../components/atoms/Precio';
 import { useAuth } from '../context/AuthContext';
 import { usePedidos } from '../context/PedidosContext';
+import { useTituloPagina } from '../hooks/useTituloPagina';
 
 function MisPedidos() {
+    useTituloPagina('Mis Pedidos');
+
+
     const { usuario, estaAutenticado } = useAuth();
     const { pedidos } = usePedidos();
 

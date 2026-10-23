@@ -9,8 +9,12 @@ import Precio from '../components/atoms/Precio';
 import ItemCarrito from '../components/molecules/ItemCarrito';
 import { useAuth } from '../context/AuthContext';
 import './Catalogo.css';
+import { useTituloPagina } from '../hooks/useTituloPagina';
 
 function Carrito() {
+    useTituloPagina('Carrito');
+
+
     const [carrito, setCarrito] = useState([]);
     const [mensajeToast, setMensajeToast] = useState('');
     const navigate = useNavigate();

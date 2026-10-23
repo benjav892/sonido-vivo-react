@@ -4,8 +4,12 @@ import Footer from '../components/organisms/Footer';
 import FormularioContacto from '../components/organisms/FormularioContacto';
 import EncabezadoMarca from '../components/molecules/EncabezadoMarca';
 import logo from '../assets/Logo.png';
+import { useTituloPagina } from '../hooks/useTituloPagina';
 
 function Contacto() {
+
+    useTituloPagina('Contacto');
+    
     return (
         <>
             <Navbar />

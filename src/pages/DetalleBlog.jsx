@@ -5,8 +5,12 @@ import Footer from '../components/organisms/Footer';
 import MigaPan from '../components/molecules/MigaPan';
 import Title from '../components/atoms/Title';
 import blogsData from '../data/blogs.json';
+import { useTituloPagina } from '../hooks/useTituloPagina';
 
 function DetalleBlog() {
+
+    useTituloPagina('Blogs');
+
     const { id } = useParams();
     const blog = blogsData.find(b => b.id === parseInt(id));
 

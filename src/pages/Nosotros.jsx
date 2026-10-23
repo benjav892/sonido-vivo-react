@@ -4,8 +4,12 @@ import Footer from '../components/organisms/Footer';
 import Title from '../components/atoms/Title';
 import ContenidoNosotros from '../components/organisms/ContenidoNosotros';
 import GrillaDesarrolladores from '../components/organisms/GrillaDesarrolladores';
+import { useTituloPagina } from '../hooks/useTituloPagina';
 
 function Nosotros() {
+
+    useTituloPagina('Nosotros');
+    
     return (
         <>
             <Navbar />
