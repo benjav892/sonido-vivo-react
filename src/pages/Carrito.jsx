@@ -7,10 +7,16 @@ import Title from '../components/atoms/Title';
 import Boton from '../components/atoms/Boton';
 import Precio from '../components/atoms/Precio';
 import ItemCarrito from '../components/molecules/ItemCarrito';
+import { useAuth } from '../context/AuthContext';
+import './Catalogo.css';
 
 function Carrito() {
     const [carrito, setCarrito] = useState([]);
+    const [mensajeToast, setMensajeToast] = useState('');
     const navigate = useNavigate();
+    
+    // llamar a la variable que dice si hay sesion activa
+    const { estaAutenticado } = useAuth(); 
 
     useEffect(() => {
         const cargarCarrito = () => {
@@ -27,6 +33,15 @@ function Carrito() {
         setCarrito(nuevoCarrito);
         localStorage.setItem('carritoSonidoVivo', JSON.stringify(nuevoCarrito));
         window.dispatchEvent(new Event('storage'));
+    };
+
+    const irAlCheckout = () => {
+        if (estaAutenticado) {
+            navigate('/checkout');
+        } else {
+            setMensajeToast('Debes iniciar sesión para proceder al pago.');
+            setTimeout(() => setMensajeToast(''), 3000);
+        }
     };
 
     const total = carrito.reduce((acc, item) => acc + (item.precio * item.cantidad), 0);
@@ -59,13 +74,19 @@ function Carrito() {
                                     texto="Ir al Checkout" 
                                     className="px-4 py-2 fs-5" 
                                     style={{ backgroundColor: 'rgb(142, 96, 125)', border: 'none' }}
-                                    onClick={() => navigate('/checkout')} 
+                                    onClick={irAlCheckout} 
                                 />
                             </div>
                         </div>
                     )}
                 </Container>
             </main>
+
+            {mensajeToast !== '' && (
+                <div className="toast-mensaje bg-danger">
+                    {mensajeToast}
+                </div>
+            )}
             <Footer />
         </>
     );
