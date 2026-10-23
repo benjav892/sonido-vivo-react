@@ -4,14 +4,23 @@ import Navbar from '../components/organisms/Navbar';
 import Footer from '../components/organisms/Footer';
 import Title from '../components/atoms/Title';
 import Precio from '../components/atoms/Precio';
+import { useAuth } from '../context/AuthContext';
 
 function MisPedidos() {
     const [pedidos, setPedidos] = useState([]);
+    const { usuario, estaAutenticado } = useAuth();
 
     useEffect(() => {
         const pedidosGuardados = JSON.parse(localStorage.getItem('pedidosSonidoVivo')) || [];
-        setPedidos(pedidosGuardados);
-    }, []);
+        
+        // si hay usuario, se filtran solo sus pedidos; si no, dejar la lista vacia
+        if (estaAutenticado && usuario) {
+            const misPedidos = pedidosGuardados.filter(p => p.clienteId === usuario.email);
+            setPedidos(misPedidos);
+        } else {
+            setPedidos([]);
+        }
+    }, [usuario, estaAutenticado]);
 
     const colorEstado = (estado) => {
         switch(estado) {
@@ -30,8 +39,10 @@ function MisPedidos() {
                     <Title texto="Mis Pedidos" nivel={1} className="text-center mb-4 fw-bold" style={{ color: '#200347' }} />
                     
                     <div className="bg-white p-4 rounded shadow-sm overflow-auto">
-                        {pedidos.length === 0 ? (
-                            <p className="text-center fs-5 m-0 text-muted">Aun no tiene pedidos registrados.</p>
+                        {!estaAutenticado ? (
+                            <p className="text-center fs-5 m-0 text-muted">Debes iniciar sesión para ver tus pedidos.</p>
+                        ) : pedidos.length === 0 ? (
+                            <p className="text-center fs-5 m-0 text-muted">Aún no tienes pedidos registrados.</p>
                         ) : (
                             <Table striped hover className="m-0 align-middle text-center">
                                 <thead>
