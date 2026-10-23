@@ -8,6 +8,7 @@ import Boton from '../components/atoms/Boton';
 import { useProductos } from '../context/ProductoContext';
 import { procesarConfirmacionPedido } from '../utils/flujoCompra';
 import { useAuth } from '../context/AuthContext';
+import { usePedidos } from '../context/PedidosContext';
 
 function Checkout() {
     const [carrito, setCarrito] = useState([]);
@@ -17,12 +18,11 @@ function Checkout() {
     
     const navigate = useNavigate();
     const { productos, actualizar } = useProductos();
-    
-    // traer los datos del usuario logueado
     const { usuario, estaAutenticado } = useAuth();
+    
+    const { agregarPedido } = usePedidos();
 
     useEffect(() => {
-        // redirección de seguridad por si intentan entrar escribiendo la URL directamente
         if (!estaAutenticado) {
             navigate('/carrito');
             return;
@@ -40,16 +40,16 @@ function Checkout() {
         const resultado = procesarConfirmacionPedido(carrito, productos, actualizar);
 
         if (resultado.exito) {
-            const pedidosGuardados = JSON.parse(localStorage.getItem('pedidosSonidoVivo')) || [];
             const nuevoPedido = {
                 id: `ORD-${Math.floor(Math.random() * 10000)}`,
                 fecha: new Date().toLocaleDateString(),
                 estado: 'En preparación',
                 total: carrito.reduce((acc, item) => acc + (item.precio * item.cantidad), 0),
                 tipoDespacho,
-                clienteId: usuario.email // <-- VINCULAMOS LA ORDEN AL CLIENTE
+                clienteId: usuario.email 
             };
-            localStorage.setItem('pedidosSonidoVivo', JSON.stringify([...pedidosGuardados, nuevoPedido]));
+            
+            agregarPedido(nuevoPedido); 
 
             navigate('/respuesta-compra', { state: { exito: true, orden: nuevoPedido.id } });
         } else {
@@ -57,7 +57,7 @@ function Checkout() {
         }
     };
 
-    if (!estaAutenticado) return null; // evita un parpadeo visual antes de redirigir
+    if (!estaAutenticado) return null;
 
     return (
         <>
