@@ -11,6 +11,7 @@ import Title from '../components/atoms/Title';
 import { useProductos } from '../context/ProductoContext';
 import { puedeAgregarAlCarrito } from '../utils/flujoCompra';
 import './Catalogo.css'; 
+import { useTituloPagina } from '../hooks/useTituloPagina';
 
 function DetalleProducto() {
     const { codigo } = useParams();
@@ -22,6 +23,8 @@ function DetalleProducto() {
     const [mensajeToast, setMensajeToast] = useState('');
     
     const producto = productos.find(p => p.codigo === codigo);
+
+    useTituloPagina(producto ? producto.nombre : 'Producto no encontrado');
 
     if (!producto) {
         return (

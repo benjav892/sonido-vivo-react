@@ -3,8 +3,11 @@ import Navbar from '../components/organisms/Navbar';
 import Footer from '../components/organisms/Footer';
 import Title from '../components/atoms/Title';
 import GrillaBlogs from '../components/organisms/GrillaBlogs';
+import { useTituloPagina } from '../hooks/useTituloPagina';
 
 function Blogs() {
+    useTituloPagina('Blogs');
+
     return (
         <>
             <Navbar />

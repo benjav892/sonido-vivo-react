@@ -8,8 +8,12 @@ import Boton from '../components/atoms/Boton';
 import { useAuth } from '../context/AuthContext';
 import { usePedidos } from '../context/PedidosContext';
 import { useNavigate } from 'react-router-dom';
+import { useTituloPagina } from '../hooks/useTituloPagina';
+
 
 function AdminPedidos() {
+    useTituloPagina('Administrar Pedidos');
+
     const { estaAutenticado } = useAuth();
     const { pedidos, cambiarEstado, borrarPedido } = usePedidos();
     const navigate = useNavigate();
