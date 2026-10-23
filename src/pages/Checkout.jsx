@@ -7,6 +7,7 @@ import Title from '../components/atoms/Title';
 import Boton from '../components/atoms/Boton';
 import { useProductos } from '../context/ProductoContext';
 import { procesarConfirmacionPedido } from '../utils/flujoCompra';
+import { useAuth } from '../context/AuthContext';
 
 function Checkout() {
     const [carrito, setCarrito] = useState([]);
@@ -16,12 +17,21 @@ function Checkout() {
     
     const navigate = useNavigate();
     const { productos, actualizar } = useProductos();
+    
+    // traer los datos del usuario logueado
+    const { usuario, estaAutenticado } = useAuth();
 
     useEffect(() => {
+        // redirección de seguridad por si intentan entrar escribiendo la URL directamente
+        if (!estaAutenticado) {
+            navigate('/carrito');
+            return;
+        }
+
         const carritoGuardado = JSON.parse(localStorage.getItem('carritoSonidoVivo')) || [];
         if (carritoGuardado.length === 0) navigate('/carrito');
         setCarrito(carritoGuardado);
-    }, [navigate]);
+    }, [navigate, estaAutenticado]);
 
     const confirmarPedido = (e) => {
         e.preventDefault();
@@ -30,14 +40,14 @@ function Checkout() {
         const resultado = procesarConfirmacionPedido(carrito, productos, actualizar);
 
         if (resultado.exito) {
-            // guardar el pedido en el navegador para la vista de Mis Pedidos
             const pedidosGuardados = JSON.parse(localStorage.getItem('pedidosSonidoVivo')) || [];
             const nuevoPedido = {
                 id: `ORD-${Math.floor(Math.random() * 10000)}`,
                 fecha: new Date().toLocaleDateString(),
                 estado: 'En preparación',
                 total: carrito.reduce((acc, item) => acc + (item.precio * item.cantidad), 0),
-                tipoDespacho
+                tipoDespacho,
+                clienteId: usuario.email // <-- VINCULAMOS LA ORDEN AL CLIENTE
             };
             localStorage.setItem('pedidosSonidoVivo', JSON.stringify([...pedidosGuardados, nuevoPedido]));
 
@@ -46,6 +56,8 @@ function Checkout() {
             navigate('/respuesta-compra', { state: { exito: false, mensaje: resultado.mensaje } });
         }
     };
+
+    if (!estaAutenticado) return null; // evita un parpadeo visual antes de redirigir
 
     return (
         <>
