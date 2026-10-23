@@ -3,12 +3,21 @@ import FormularioLogin from "../components/organisms/FormularioLogin";
 import { useNavigate } from "react-router-dom";
 import { autenticarUsuario } from "../services/usuarioService";
 import { useTituloPagina } from "../hooks/useTituloPagina";
+import { useAuth } from "../context/AuthContext";
 
 function Login(props) {
     const navigate = useNavigate()
+    const { login } = useAuth()
     function alIniciarSesion(correo, contrasena) {
         const usuarioEncontrado = autenticarUsuario(correo, contrasena)
         if (usuarioEncontrado) {
+            // guardar la sesión sin la contraseña
+            login({
+                id: usuarioEncontrado.id,
+                nombre: usuarioEncontrado.nombre,
+                correo: usuarioEncontrado.correo,
+                rol: usuarioEncontrado.rol
+            })
             if (usuarioEncontrado.rol === 'Administrador') {
                 navigate('/admin')
             } else {

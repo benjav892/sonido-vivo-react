@@ -1,5 +1,6 @@
 import { useNavigate, useParams } from "react-router-dom";
 import { useUsuarios } from "../context/UsuariosContext";
+import { usePedidos } from "../context/PedidosContext";
 import PlantillaAdministrador from "../components/templates/PlantillaAdministrador";
 import EncabezadoSeccion from "../components/molecules/EncabezadoSeccion";
 import TablaDinamica from "../components/organisms/TablaDinamica";
@@ -10,18 +11,14 @@ function PaginaDetalleUsuario() {
     const navigate = useNavigate();
     const params = useParams();
     const { usuarios } = useUsuarios();
+    const { pedidos } = usePedidos();
     useTituloPagina('Detalle de Usuario');
 
     const id = Number(params.id);
     const usuario = usuarios.find((u) => u.id === id);
 
-    const historialPedidos = JSON.parse(localStorage.getItem('pedidos') || '[]');
-
-
     const pedidosUsuario = usuario
-        ? historialPedidos.filter(
-            (p) => p.usuarioId === usuario.id || p.correo === usuario.correo
-        )
+        ? pedidos.filter((p) => p.clienteId === usuario.correo)
         : [];
 
     if (!usuario) {
@@ -45,13 +42,17 @@ function PaginaDetalleUsuario() {
         { titulo: '# Pedido', llave: 'id' },
         { titulo: 'Fecha', llave: 'fecha' },
         {
+            titulo: 'Entrega',
+            render: (ped) => (ped.tipoDespacho === 'retiro' ? 'Retiro en tienda' : 'Despacho')
+        },
+        {
             titulo: 'Total',
             render: (ped) => `$${ped.total?.toLocaleString('es-CL') ?? 0}`
         },
         {
             titulo: 'Estado',
             render: (ped) => (
-                <span className={`badge ${ped.estado === 'Entregado' ? 'bg-success' : 'bg-warning text-dark'}`}>
+                <span className={`badge ${ped.estado === 'Entregado' ? 'bg-success' : ped.estado === 'Despachado' ? 'bg-info text-dark' : 'bg-warning text-dark'}`}>
                     {ped.estado || 'En proceso'}
                 </span>
             )
