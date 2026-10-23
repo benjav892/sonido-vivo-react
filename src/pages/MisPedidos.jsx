@@ -1,26 +1,19 @@
-import { useState, useEffect } from 'react';
 import { Container, Table, Badge } from 'react-bootstrap';
 import Navbar from '../components/organisms/Navbar';
 import Footer from '../components/organisms/Footer';
 import Title from '../components/atoms/Title';
 import Precio from '../components/atoms/Precio';
 import { useAuth } from '../context/AuthContext';
+import { usePedidos } from '../context/PedidosContext';
 
 function MisPedidos() {
-    const [pedidos, setPedidos] = useState([]);
     const { usuario, estaAutenticado } = useAuth();
+    const { pedidos } = usePedidos();
 
-    useEffect(() => {
-        const pedidosGuardados = JSON.parse(localStorage.getItem('pedidosSonidoVivo')) || [];
-        
-        // si hay usuario, se filtran solo sus pedidos; si no, dejar la lista vacia
-        if (estaAutenticado && usuario) {
-            const misPedidos = pedidosGuardados.filter(p => p.clienteId === usuario.email);
-            setPedidos(misPedidos);
-        } else {
-            setPedidos([]);
-        }
-    }, [usuario, estaAutenticado]);
+    // filtrar dinámicamente usando el estado global de pedidos
+    const misPedidosFiltrados = (estaAutenticado && usuario) 
+        ? pedidos.filter(p => p.clienteId === usuario.email)
+        : [];
 
     const colorEstado = (estado) => {
         switch(estado) {
@@ -41,7 +34,7 @@ function MisPedidos() {
                     <div className="bg-white p-4 rounded shadow-sm overflow-auto">
                         {!estaAutenticado ? (
                             <p className="text-center fs-5 m-0 text-muted">Debes iniciar sesión para ver tus pedidos.</p>
-                        ) : pedidos.length === 0 ? (
+                        ) : misPedidosFiltrados.length === 0 ? (
                             <p className="text-center fs-5 m-0 text-muted">Aún no tienes pedidos registrados.</p>
                         ) : (
                             <Table striped hover className="m-0 align-middle text-center">
@@ -55,7 +48,7 @@ function MisPedidos() {
                                     </tr>
                                 </thead>
                                 <tbody>
-                                    {pedidos.map(pedido => (
+                                    {misPedidosFiltrados.map(pedido => (
                                         <tr key={pedido.id}>
                                             <td className="fw-bold">{pedido.id}</td>
                                             <td>{pedido.fecha}</td>
