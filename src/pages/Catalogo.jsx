@@ -1,5 +1,5 @@
-import { useState } from 'react';
-import { Container } from 'react-bootstrap';
+import { useState } from 'react'; // <-- Importamos useState
+import { Container, Row, Col, Form } from 'react-bootstrap';
 import Navbar from '../components/organisms/Navbar'; 
 import Footer from '../components/organisms/Footer';
 import GrillaProductos from '../components/organisms/GrillaProductos';
@@ -8,16 +8,23 @@ import { useProductos } from '../context/ProductoContext';
 import { useNavigate } from 'react-router-dom';
 import { puedeAgregarAlCarrito } from '../utils/flujoCompra';
 import './Catalogo.css'; 
-import { useTituloPagina } from '../hooks/useTituloPagina';
 
 function Catalogo() {
-    useTituloPagina('Catalogo');
-
     const { productos } = useProductos();
     const navigate = useNavigate();
     
     // crear el estado para controlar el mensaje en pantalla
     const [mensajeToast, setMensajeToast] = useState('');
+
+    // filtros de búsqueda: por texto y por categoría
+    const [busqueda, setBusqueda] = useState('');
+    const [categoria, setCategoria] = useState('');
+    const categorias = [...new Set(productos.map((p) => p.categoria))];
+    const texto = busqueda.toLowerCase();
+    const productosFiltrados = productos.filter((p) =>
+        (categoria === '' || p.categoria === categoria) &&
+        (p.nombre.toLowerCase().includes(texto) || (p.marca ?? '').toLowerCase().includes(texto))
+    );
 
     function alAgregarCarrito(codigo) {
         let carritoActual = JSON.parse(localStorage.getItem('carritoSonidoVivo')) || [];
@@ -65,8 +72,31 @@ function Catalogo() {
                 <Container>
                     <Title texto="Catálogo" nivel={1} className="text-center mb-5 fw-bold" style={{color: '#200347'}} />
                     
+                    <Row className="g-3 mb-4">
+                        <Col xs={12} md={8}>
+                            <Form.Control
+                                type="text"
+                                placeholder="Buscar por nombre o marca"
+                                value={busqueda}
+                                onChange={(e) => setBusqueda(e.target.value)}
+                            />
+                        </Col>
+                        <Col xs={12} md={4}>
+                            <Form.Select value={categoria} onChange={(e) => setCategoria(e.target.value)}>
+                                <option value="">Todas las categorías</option>
+                                {categorias.map((c) => (
+                                    <option key={c} value={c}>{c}</option>
+                                ))}
+                            </Form.Select>
+                        </Col>
+                    </Row>
+
+                    {productosFiltrados.length === 0 && (
+                        <p className="text-center fs-5">No se encontraron productos con esos filtros.</p>
+                    )}
+
                     <GrillaProductos 
-                        productos={productos} 
+                        productos={productosFiltrados} 
                         onAgregarCarrito={alAgregarCarrito}
                         onVerDetalle={alVerDetalle}
                     />
