@@ -8,7 +8,11 @@ const itemsMenu = [
     { texto: 'Inicio', ruta: '/admin' },
     { texto: 'Gestión de usuarios', ruta: '/admin/usuarios' },
     { texto: 'Gestión de inventario', ruta: '/admin/inventario' },
-    { texto: 'Gestión de categorías', ruta: '/admin/categorias' }
+    { texto: 'Gestión de categorías', ruta: '/admin/categorias' },
+    { texto: 'Gestión de pedidos', ruta: '/admin/pedidos' },
+    { texto: 'Ítems críticos', ruta: '/admin/criticos' },
+    { texto: 'Reportes', ruta: '/admin/reportes' },
+    { texto: 'Mi perfil', ruta: '/admin/perfil' }
 ];
 
 function PlantillaAdministrador(props) {
