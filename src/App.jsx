@@ -15,6 +15,9 @@ import Checkout from "./pages/Checkout";
 import RespuestaCompra from "./pages/RespuestaCompra";
 import MisPedidos from "./pages/MisPedidos";
 import AdminPedidos from "./pages/AdminPedidos";
+import Categoria from "./pages/Categoria";
+import Categorias from "./pages/Categorias";
+import Ofertas from "./pages/Ofertas";
 
 // Componentes de Administración
 import PaginaInicioAdministrador from "./pages/PaginaInicioAdministrador";
@@ -60,6 +63,10 @@ function App() {
                                     <Route path="/checkout" element={<Checkout />} />
                                     <Route path="/respuesta-compra" element={<RespuestaCompra />} />
                                     <Route path="/mis-pedidos" element={<MisPedidos />} />
+                                    <Route path="/categoria/:nombre" element={<Categoria />} />
+                                    <Route path="/categorias" element ={<Categorias />} />
+                                    <Route path="/ofertas" element = {<Ofertas />} />
+                                    
 
                                     <Route path="/admin" element={<PaginaInicioAdministrador />} />
                                     <Route path="/admin/usuarios" element={<PaginaGestionUsuarios />} />
