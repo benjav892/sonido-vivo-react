@@ -1,18 +1,16 @@
-import { createContext, useState, useContext, useEffect } from 'react';
+import { createContext, useState, useContext } from 'react';
 
 // Creamos el contexto de autenticación
 const AuthContext = createContext();
 
 export function AuthProvider({ children }) {
-    const [usuario, setUsuario] = useState(null);
-
-    // Al cargar la aplicación, revisamos si el usuario ya había iniciado sesión
-    useEffect(() => {
-        const usuarioGuardado = JSON.parse(localStorage.getItem('usuarioSonidoVivo'));
-        if (usuarioGuardado) {
-            setUsuario(usuarioGuardado);
+    const [usuario, setUsuario] = useState(() => {
+        try {
+            return JSON.parse(localStorage.getItem('usuarioSonidoVivo'))
+        } catch {
+            return null
         }
-    }, []);
+    });
 
     // Función para iniciar sesión
     const login = (datosUsuario) => {
