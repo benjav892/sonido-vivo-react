@@ -18,7 +18,8 @@ describe('Página Carrito', () => {
 
     it('Debe mostrar el mensaje de "carrito vacío" cuando no hay productos en localStorage', () => {
         // simular que el usuario sí inicio sesion
-        vi.spyOn(AuthContext, 'useAuth').mockReturnValue({ estaAutenticado: true });
+        vi.spyOn(AuthContext, 'useAuth').mockReturnValue({ estaAutenticado: true, usuario: { rol: 'Cliente' } 
+        });
 
         // renderizar la pagina envuelta en MemoryRouter porque usa <Link> y navigate
         render(
