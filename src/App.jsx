@@ -25,6 +25,9 @@ import { PaginaAgregarProducto } from "./pages/PaginaAgregarProducto";
 import { PaginaGestionCategorias } from './pages/PaginaGestionCategorias';
 import { PaginaAgregarCategoria } from './pages/PaginaAgregarCategoria';
 import PaginaDetalleUsuario from "./pages/PaginaDetalleUsuario";
+import PaginaReportes from "./pages/PaginaReportes";
+import PaginaPerfil from "./pages/PaginaPerfil";
+import PaginaDetallePedido from "./pages/PaginaDetallePedido";
 
 // Proveedores de contexto
 import { UsuariosProvider } from "./context/UsuariosContext";
@@ -32,6 +35,7 @@ import { ProductosProvider } from "./context/ProductoContext";
 import { CategoriasProvider } from './context/CategoriaContext';
 import { AuthProvider } from "./context/AuthContext";
 import { PedidosProvider } from './context/PedidosContext';
+
 
 function App() {
     return (
@@ -68,6 +72,9 @@ function App() {
                                     <Route path="/admin/categorias/nueva" element={<PaginaAgregarCategoria />} />
                                     <Route path="/admin/categorias/editar/:id" element={<PaginaAgregarCategoria />} />
                                     <Route path="/admin/pedidos" element={<AdminPedidos />} />
+                                    <Route path="/admin/pedidos/:id" element={<PaginaDetallePedido />} />
+                                    <Route path="/admin/reportes" element={<PaginaReportes />} />
+                                    <Route path="/admin/perfil" element={<PaginaPerfil />} />
                                 </Routes>
                             </CategoriasProvider>
                         </PedidosProvider>

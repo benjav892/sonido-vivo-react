@@ -1,110 +1,102 @@
-import { useEffect } from 'react';
-import { Container, Table, Badge, Form } from 'react-bootstrap';
-import Navbar from '../components/organisms/Navbar';
-import Footer from '../components/organisms/Footer';
-import Title from '../components/atoms/Title';
-import Precio from '../components/atoms/Precio';
-import Boton from '../components/atoms/Boton';
-import { useAuth } from '../context/AuthContext';
-import { usePedidos } from '../context/PedidosContext';
+import { useState } from 'react';
+import { Badge, Form } from 'react-bootstrap';
 import { useNavigate } from 'react-router-dom';
+import PlantillaAdministrador from '../components/templates/PlantillaAdministrador';
+import EncabezadoSeccion from '../components/molecules/EncabezadoSeccion';
+import BarraBusqueda from '../components/molecules/BarraBusqueda';
+import TablaDinamica from '../components/organisms/TablaDinamica';
+import Boton from '../components/atoms/Boton';
+import { usePedidos } from '../context/PedidosContext';
+import { useUsuarios } from '../context/UsuariosContext';
+import { useSoloPersonal } from '../hooks/useSoloPersonal';
 import { useTituloPagina } from '../hooks/useTituloPagina';
+import { formatearPrecio } from '../utils/formatos';
 
+function colorEstado(estado) {
+    switch (estado) {
+        case 'En preparación': return 'warning';
+        case 'Despachado': return 'info';
+        case 'Entregado': return 'success';
+        default: return 'secondary';
+    }
+}
 
 function AdminPedidos() {
-    useTituloPagina('Administrar Pedidos');
-
-    const { estaAutenticado } = useAuth();
-    const { pedidos, cambiarEstado, borrarPedido } = usePedidos();
+    const autorizado = useSoloPersonal();
     const navigate = useNavigate();
+    const { pedidos, cambiarEstado, borrarPedido } = usePedidos();
+    const { usuarios } = useUsuarios();
+    const [busqueda, setBusqueda] = useState('');
+    useTituloPagina('Gestión de pedidos');
 
-    useEffect(() => {
-        if (!estaAutenticado) {
-            navigate('/');
-        }
-    }, [estaAutenticado, navigate]);
+    if (!autorizado) return null;
 
-    const confirmarYBorrar = (id) => {
-        const confirmacion = window.confirm(`¿Estás seguro de eliminar el pedido ${id}? Esta acción no se puede deshacer.`);
-        if (confirmacion) {
+    // el pedido guarda el correo del cliente, se busca su nombre para mostrarlo
+    function nombreCliente(correo) {
+        const cliente = usuarios.find((u) => u.correo === correo);
+        return cliente ? cliente.nombre : correo;
+    }
+
+    function confirmarYBorrar(id) {
+        if (window.confirm(`¿Eliminar el pedido ${id}? Esta acción no se puede deshacer.`)) {
             borrarPedido(id);
         }
-    };
+    }
 
-    const colorEstado = (estado) => {
-        switch(estado) {
-            case 'En preparación': return 'warning';
-            case 'Despachado': return 'info';
-            case 'Entregado': return 'success';
-            default: return 'secondary';
+    const texto = busqueda.toLowerCase();
+    const pedidosFiltrados = [...pedidos].reverse().filter((p) =>
+        p.id.toLowerCase().includes(texto) ||
+        (p.clienteId ?? '').toLowerCase().includes(texto)
+    );
+
+    const columnas = [
+        { titulo: 'Orden', llave: 'id' },
+        { titulo: 'Cliente', render: (p) => nombreCliente(p.clienteId) },
+        { titulo: 'Fecha', llave: 'fecha' },
+        { titulo: 'Total', render: (p) => formatearPrecio(p.total) },
+        {
+            titulo: 'Estado',
+            render: (p) => (
+                <>
+                    <Badge bg={colorEstado(p.estado)} className="mb-2 d-block" style={{ width: 'fit-content' }}>
+                        {p.estado}
+                    </Badge>
+                    <Form.Select
+                        size="sm"
+                        value={p.estado}
+                        onChange={(e) => cambiarEstado(p.id, e.target.value)}
+                        style={{ maxWidth: '160px' }}
+                    >
+                        <option value="En preparación">En preparación</option>
+                        <option value="Despachado">Despachado</option>
+                        <option value="Entregado">Entregado</option>
+                    </Form.Select>
+                </>
+            )
+        },
+        {
+            titulo: 'Acciones',
+            render: (p) => (
+                <>
+                    <Boton className="me-2" variante="info" texto="Ver comprobante" onClick={() => navigate(`/admin/pedidos/${p.id}`)} />
+                    <Boton variante="danger" texto="Eliminar" onClick={() => confirmarYBorrar(p.id)} />
+                </>
+            )
         }
-    };
-
-    if (!estaAutenticado) return null;
+    ];
 
     return (
-        <>
-            <Navbar />
-            <main className="py-5 min-vh-100" style={{ backgroundColor: 'rgb(207, 193, 228)' }}>
-                <Container>
-                    <Title texto="Panel Administrativo de Pedidos" nivel={1} className="text-center mb-4 fw-bold" style={{ color: '#200347' }} />
-                    
-                    <div className="bg-white p-4 rounded shadow-sm overflow-auto">
-                        {pedidos.length === 0 ? (
-                            <p className="text-center fs-5 m-0 text-muted">No hay pedidos registrados en el sistema.</p>
-                        ) : (
-                            <Table striped hover className="m-0 align-middle text-center">
-                                <thead>
-                                    <tr>
-                                        <th>Orden</th>
-                                        <th>Cliente</th>
-                                        <th>Fecha</th>
-                                        <th>Total</th>
-                                        <th>Estado Actual</th>
-                                        <th>Acciones</th>
-                                    </tr>
-                                </thead>
-                                <tbody>
-                                    {pedidos.map(pedido => (
-                                        <tr key={pedido.id}>
-                                            <td className="fw-bold">{pedido.id}</td>
-                                            <td>{pedido.clienteId}</td>
-                                            <td>{pedido.fecha}</td>
-                                            <td><Precio valor={pedido.total} /></td>
-                                            <td style={{ minWidth: '180px' }}>
-                                                <Badge bg={colorEstado(pedido.estado)} className="fs-6 mb-2 d-block mx-auto" style={{ width: 'fit-content' }}>
-                                                    {pedido.estado}
-                                                </Badge>
-                                                <Form.Select 
-                                                    size="sm" 
-                                                    value={pedido.estado} 
-                                                    onChange={(e) => cambiarEstado(pedido.id, e.target.value)}
-                                                    className="mx-auto"
-                                                    style={{ maxWidth: '150px' }}
-                                                >
-                                                    <option value="En preparación">En preparación</option>
-                                                    <option value="Despachado">Despachado</option>
-                                                    <option value="Entregado">Entregado</option>
-                                                </Form.Select>
-                                            </td>
-                                            <td>
-                                                <Boton 
-                                                    texto="Eliminar" 
-                                                    variante="danger" 
-                                                    className="btn-sm fw-bold" 
-                                                    onClick={() => confirmarYBorrar(pedido.id)} 
-                                                />
-                                            </td>
-                                        </tr>
-                                    ))}
-                                </tbody>
-                            </Table>
-                        )}
-                    </div>
-                </Container>
-            </main>
-            <Footer />
-        </>
+        <PlantillaAdministrador>
+            <EncabezadoSeccion titulo="Gestión de Pedidos" />
+            <BarraBusqueda
+                placeholder="Buscar por número de orden o correo del cliente"
+                valor={busqueda}
+                onChange={(e) => setBusqueda(e.target.value)}
+                textoBoton="LIMPIAR"
+                onBuscar={() => setBusqueda('')}
+            />
+            <TablaDinamica columnas={columnas} datos={pedidosFiltrados} />
+        </PlantillaAdministrador>
     );
 }
 
