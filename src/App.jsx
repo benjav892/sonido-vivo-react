@@ -25,6 +25,7 @@ import { PaginaAgregarProducto } from "./pages/PaginaAgregarProducto";
 import { PaginaGestionCategorias } from './pages/PaginaGestionCategorias';
 import { PaginaAgregarCategoria } from './pages/PaginaAgregarCategoria';
 import PaginaDetalleUsuario from "./pages/PaginaDetalleUsuario";
+import PaginaItemsCriticos from "./pages/PaginaItemsCriticos";
 import PaginaReportes from "./pages/PaginaReportes";
 import PaginaPerfil from "./pages/PaginaPerfil";
 import PaginaDetallePedido from "./pages/PaginaDetallePedido";
@@ -73,6 +74,7 @@ function App() {
                                     <Route path="/admin/categorias/editar/:id" element={<PaginaAgregarCategoria />} />
                                     <Route path="/admin/pedidos" element={<AdminPedidos />} />
                                     <Route path="/admin/pedidos/:id" element={<PaginaDetallePedido />} />
+                                    <Route path="/admin/criticos" element={<PaginaItemsCriticos />} />
                                     <Route path="/admin/reportes" element={<PaginaReportes />} />
                                     <Route path="/admin/perfil" element={<PaginaPerfil />} />
                                 </Routes>
