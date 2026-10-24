@@ -3,7 +3,7 @@ import categorias from '../../data/categorias.json'
 import TarjetaCategoria from '../molecules/TarjetaCategoria';
 import { Container, Row, Col } from "react-bootstrap";
 
-function CategoriaProductos() {
+function CategoriaProductos(props) {
     return (
         <Card>
             <h2>Categorías</h2>
@@ -15,6 +15,7 @@ function CategoriaProductos() {
                             src={categoria.src}
                             alt={categoria.alt}
                             texto={categoria.texto}
+                            onClick={props.onSeleccionar ? () => props.onSeleccionar(categoria.texto) : undefined}
 
                         />
                     </Col>
