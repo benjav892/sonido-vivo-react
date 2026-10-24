@@ -27,6 +27,6 @@ describe('Validaciones de flujoCompra', () => {
 
         expect(resultado.valido).toBe(false);
         // verificar que el mensaje de error sea correcto
-        expect(resultado.mensaje).toContain('Stock insuficiente');
+        expect(resultado.mensaje).toContain('No hay stock suficiente'); //fallo a propósito: el mensaje de error es: 'Stock insuficiente' 
     });
 });
