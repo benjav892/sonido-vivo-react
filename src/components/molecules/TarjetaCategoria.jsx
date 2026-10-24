@@ -6,7 +6,11 @@ function TarjetaCategoria(props) {
 
     return (
 
-        <Card className="tarjeta-categoria h-100">
+        <Card
+            className="tarjeta-categoria h-100"
+            onClick={props.onClick}
+            style={props.onClick ? { cursor: 'pointer' } : undefined}
+        >
             <ImagenInstrumento src={props.src} alt={props.alt} />
             <DescInstrumento texto={props.texto} />
         </Card>
