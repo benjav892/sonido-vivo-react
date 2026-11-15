@@ -4,7 +4,10 @@ import { useState, useEffect } from 'react';
 import logo from '../../assets/Logo.png';
 import { useAuth } from '../../context/AuthContext';
 
-function Navbar() {
+function Navbar(props) {
+    const tituloMarca = props.titulo || 'Sonido Vivo';
+    const logoImagen = props.logoSrc || logo;
+
     const [cantidadCarrito, setCantidadCarrito] = useState(0);
     const { usuario, estaAutenticado, logout } = useAuth();
     const esPersonal = estaAutenticado && ['Administrador', 'Vendedor', 'Empleado'].includes(usuario.rol);
@@ -29,10 +32,10 @@ function Navbar() {
     }, []);
 
     return (
-        <header className="d-flex justify-content-between align-items-center p-3 flex-wrap" style={{ backgroundColor: 'rgb(142, 96, 125)' }}>
+        <header className={`d-flex justify-content-between align-items-center p-3 flex-wrap ${props.className || ''}`} style={{ backgroundColor: 'rgb(142, 96, 125)' }}>
             <div className="logo d-flex align-items-center gap-2">
-                <Image src={logo} alt="Logo sonido vivo" style={{ width: '60px' }} />
-                <h2 className="text-white m-0">Sonido Vivo</h2>
+                <Image src={logoImagen} alt="Logo sonido vivo" style={{ width: '60px' }} />
+                <h2 className="text-white m-0">{tituloMarca}</h2>
             </div>
             <nav className="d-flex gap-3">
                 <Link to="/" className="text-dark fw-bold text-decoration-none">Home</Link>

@@ -2,9 +2,14 @@ import { useState } from 'react';
 import { Form } from 'react-bootstrap';
 import CampoFormulario from '../molecules/CampoFormulario';
 import Boton from '../atoms/Boton';
+import MensajeError from '../atoms/MensajeError';
 import { validarNombre, validarCorreo } from '../../utils/validaciones';
 
-function FormularioContacto() {
+function FormularioContacto(props) {
+    const titulo = props.titulo || 'FORMULARIO DE CONTACTO';
+    const textoBoton = props.textoBoton || 'Enviar Mensaje';
+    const maxCaracteres = props.maxCaracteres || 500;
+
     const [nombre, setNombre] = useState('');
     const [correo, setCorreo] = useState('');
     const [comentario, setComentario] = useState('');
@@ -23,8 +28,8 @@ function FormularioContacto() {
 
         if (comentario.trim() === '') {
             errCom = 'Debe ingresar un mensaje o comentario.';
-        } else if (comentario.length > 500) {
-            errCom = 'El comentario no puede superar los 500 caracteres.';
+        } else if (comentario.length > maxCaracteres) {
+            errCom = `El comentario no puede superar los ${maxCaracteres} caracteres.`;
         }
 
         setErrorNombre(errNom);
@@ -42,9 +47,9 @@ function FormularioContacto() {
     }
 
     return (
-        <Form onSubmit={alEnviar} noValidate className="p-4 rounded shadow w-100" style={{ backgroundColor: 'rgb(168, 123, 151)' }}>
+        <Form onSubmit={alEnviar} noValidate className={`p-4 rounded shadow w-100 ${props.className || ''}`} style={{ backgroundColor: 'rgb(168, 123, 151)' }}>
             <div className="text-center mb-4 p-3 rounded" style={{ backgroundColor: 'rgb(142, 96, 125)', color: 'white' }}>
-                <h3 className="m-0 text-white">FORMULARIO DE CONTACTO</h3>
+                <h3 className="m-0 text-white">{titulo}</h3>
             </div>
 
             <CampoFormulario etiqueta="Nombre Completo:" id="nombre" tipo="text" value={nombre} onChange={(e) => setNombre(e.target.value)} error={errorNombre} requerido={true} />
@@ -52,11 +57,11 @@ function FormularioContacto() {
 
             <Form.Group className="mb-3">
                 <Form.Label htmlFor="comentario" className="fw-bold" style={{ color: '#4D3D4F' }}>Mensaje / Comentario:</Form.Label>
-                <Form.Control as="textarea" id="comentario" rows={5} maxLength={500} value={comentario} onChange={(e) => setComentario(e.target.value)} className={errorComentario ? 'is-invalid' : ''} />
-                <span className="text-danger error d-block mt-1 fw-bold">{errorComentario}</span>
+                <Form.Control as="textarea" id="comentario" rows={5} maxLength={maxCaracteres} value={comentario} onChange={(e) => setComentario(e.target.value)} className={errorComentario ? 'is-invalid' : ''} />
+                <MensajeError mensaje={errorComentario} className="error" />
             </Form.Group>
 
-            <Boton texto="Enviar Mensaje" type="submit" className="w-100 mt-2 py-2" variante="dark" />
+            <Boton texto={textoBoton} type="submit" className="w-100 mt-2 py-2" variante="dark" />
             
             {mensajeExito && <p className="mt-3 text-center fw-bold" style={{ color: '#094d17' }}>{mensajeExito}</p>}
         </Form>
