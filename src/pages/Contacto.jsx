@@ -7,7 +7,6 @@ import logo from '../assets/Logo.png';
 import { useTituloPagina } from '../hooks/useTituloPagina';
 
 function Contacto() {
-
     useTituloPagina('Contacto');
     
     return (
@@ -16,10 +15,14 @@ function Contacto() {
             <main className="py-5 min-vh-100" style={{ backgroundColor: 'rgb(207, 193, 228)' }}>
                 <Container className="d-flex flex-column align-items-center" style={{ maxWidth: '600px' }}>
                     <EncabezadoMarca logoSrc={logo} titulo={<>Sonido Vivo</>} className="mb-4" />
-                    <FormularioContacto />
+                    <FormularioContacto 
+                        titulo="FORMULARIO DE CONTACTO" 
+                        textoBoton="Enviar Mensaje" 
+                        maxCaracteres={500} 
+                    />
                 </Container>
             </main>
-            <Footer />
+            <Footer anio={2026} />
         </>
     );
 }
