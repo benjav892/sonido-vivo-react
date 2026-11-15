@@ -287,7 +287,7 @@ Mientras ese caso exista, `npm run test:run` termina con 1 prueba en rojo y 28 e
 - `autenticarUsuario` compara el correo con mayúsculas exactas (el registro sí lo compara sin distinguirlas).
 - El contador del carrito del `Navbar` escucha el evento `storage`, que solo se dispara en otras pestañas; puede no actualizarse al agregar en la misma.
 - Las ofertas son productos destacados definidos en `src/data/ofertas.json`, sin descuento de precio.
-- Hay componentes duplicados (`CampoFormulario` y `CampoInput`, `InputFormulario` e `InputTexto`) y `npm run lint` reporta variables sin usar (`props`) por limpiar.
+- Hay componentes duplicados (`CampoFormulario` y `CampoInput`, `InputFormulario` e `InputTexto`).
 - La cobertura de pruebas es parcial: se priorizó la lógica (validaciones, services y flujo de compra) por sobre las páginas.
 
 ## Material complementario
