@@ -1,5 +1,8 @@
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 
+// Protección de rutas
+import RutaProtegida from "./components/RutaProtegida";
+
 // Componentes Públicos
 import Inicio from "./pages/Inicio";
 import Login from "./pages/Login";
@@ -40,6 +43,8 @@ import { CategoriasProvider } from './context/CategoriaContext';
 import { AuthProvider } from "./context/AuthContext";
 import { PedidosProvider } from './context/PedidosContext';
 
+const ROLES_PERSONAL = ['Administrador', 'Vendedor'];
+const SOLO_ADMIN = ['Administrador'];
 
 function App() {
     return (
@@ -50,6 +55,7 @@ function App() {
                         <PedidosProvider>
                             <CategoriasProvider>
                                 <Routes>
+                                    {/* Rutas públicas */}
                                     <Route path="/" element={<Inicio />} />
                                     <Route path="/login" element={<Login />} />
                                     <Route path="/catalogo" element={<Catalogo />} />
@@ -60,30 +66,33 @@ function App() {
                                     <Route path="/blogs" element={<Blogs />} />
                                     <Route path="/blog/:id" element={<DetalleBlog />} />
                                     <Route path="/carrito" element={<Carrito />} />
-                                    <Route path="/checkout" element={<Checkout />} />
-                                    <Route path="/respuesta-compra" element={<RespuestaCompra />} />
-                                    <Route path="/mis-pedidos" element={<MisPedidos />} />
                                     <Route path="/categoria/:nombre" element={<Categoria />} />
-                                    <Route path="/categorias" element ={<Categorias />} />
-                                    <Route path="/ofertas" element = {<Ofertas />} />
-                                    
+                                    <Route path="/categorias" element={<Categorias />} />
+                                    <Route path="/ofertas" element={<Ofertas />} />
 
-                                    <Route path="/admin" element={<PaginaInicioAdministrador />} />
-                                    <Route path="/admin/usuarios" element={<PaginaGestionUsuarios />} />
-                                    <Route path="/admin/usuarios/detalle/:id" element={<PaginaDetalleUsuario />} />
-                                    <Route path="/admin/inventario" element={<PaginaGestionInventario />} />
-                                    <Route path="/admin/inventario/nuevo" element={<PaginaAgregarProducto />} />
-                                    <Route path="/admin/inventario/editar/:id" element={<PaginaAgregarProducto />} />
-                                    <Route path="/admin/inventario/detalle/:id" element={<PaginaDetalleProductoAdmin />} />
+                                    {/* Rutas que requieren sesión (cualquier rol autenticado) */}
+                                    <Route path="/checkout" element={<RutaProtegida><Checkout /></RutaProtegida>} />
+                                    <Route path="/respuesta-compra" element={<RutaProtegida><RespuestaCompra /></RutaProtegida>} />
+                                    <Route path="/mis-pedidos" element={<RutaProtegida><MisPedidos /></RutaProtegida>} />
 
-                                    <Route path="/admin/categorias" element={<PaginaGestionCategorias />} />
-                                    <Route path="/admin/categorias/nueva" element={<PaginaAgregarCategoria />} />
-                                    <Route path="/admin/categorias/editar/:id" element={<PaginaAgregarCategoria />} />
-                                    <Route path="/admin/pedidos" element={<AdminPedidos />} />
-                                    <Route path="/admin/pedidos/:id" element={<PaginaDetallePedido />} />
-                                    <Route path="/admin/criticos" element={<PaginaItemsCriticos />} />
-                                    <Route path="/admin/reportes" element={<PaginaReportes />} />
-                                    <Route path="/admin/perfil" element={<PaginaPerfil />} />
+                                    {/* Rutas exclusivas de Administrador (CRUD de usuarios) */}
+                                    <Route path="/admin/usuarios" element={<RutaProtegida rolesPermitidos={SOLO_ADMIN}><PaginaGestionUsuarios /></RutaProtegida>} />
+                                    <Route path="/admin/usuarios/detalle/:id" element={<RutaProtegida rolesPermitidos={SOLO_ADMIN}><PaginaDetalleUsuario /></RutaProtegida>} />
+
+                                    {/* Rutas de personal (Administrador y Vendedor) */}
+                                    <Route path="/admin" element={<RutaProtegida rolesPermitidos={ROLES_PERSONAL}><PaginaInicioAdministrador /></RutaProtegida>} />
+                                    <Route path="/admin/inventario" element={<RutaProtegida rolesPermitidos={ROLES_PERSONAL}><PaginaGestionInventario /></RutaProtegida>} />
+                                    <Route path="/admin/inventario/nuevo" element={<RutaProtegida rolesPermitidos={ROLES_PERSONAL}><PaginaAgregarProducto /></RutaProtegida>} />
+                                    <Route path="/admin/inventario/editar/:id" element={<RutaProtegida rolesPermitidos={ROLES_PERSONAL}><PaginaAgregarProducto /></RutaProtegida>} />
+                                    <Route path="/admin/inventario/detalle/:id" element={<RutaProtegida rolesPermitidos={ROLES_PERSONAL}><PaginaDetalleProductoAdmin /></RutaProtegida>} />
+                                    <Route path="/admin/categorias" element={<RutaProtegida rolesPermitidos={ROLES_PERSONAL}><PaginaGestionCategorias /></RutaProtegida>} />
+                                    <Route path="/admin/categorias/nueva" element={<RutaProtegida rolesPermitidos={ROLES_PERSONAL}><PaginaAgregarCategoria /></RutaProtegida>} />
+                                    <Route path="/admin/categorias/editar/:id" element={<RutaProtegida rolesPermitidos={ROLES_PERSONAL}><PaginaAgregarCategoria /></RutaProtegida>} />
+                                    <Route path="/admin/pedidos" element={<RutaProtegida rolesPermitidos={ROLES_PERSONAL}><AdminPedidos /></RutaProtegida>} />
+                                    <Route path="/admin/pedidos/:id" element={<RutaProtegida rolesPermitidos={ROLES_PERSONAL}><PaginaDetallePedido /></RutaProtegida>} />
+                                    <Route path="/admin/criticos" element={<RutaProtegida rolesPermitidos={ROLES_PERSONAL}><PaginaItemsCriticos /></RutaProtegida>} />
+                                    <Route path="/admin/reportes" element={<RutaProtegida rolesPermitidos={ROLES_PERSONAL}><PaginaReportes /></RutaProtegida>} />
+                                    <Route path="/admin/perfil" element={<RutaProtegida rolesPermitidos={ROLES_PERSONAL}><PaginaPerfil /></RutaProtegida>} />
                                 </Routes>
                             </CategoriasProvider>
                         </PedidosProvider>
