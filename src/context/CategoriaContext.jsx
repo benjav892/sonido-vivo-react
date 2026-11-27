@@ -1,34 +1,74 @@
-import { createContext, useContext, useState } from 'react'
-import * as categoriaService from '../services/categoriaService';
+import { createContext, useCallback, useContext, useEffect, useState } from 'react'
+import * as categoriaService from '../services/categoriaService'
+import { obtenerMensajeError } from '../services/api'
 
-const CategoriasContext = createContext(null);
+const CategoriasContext = createContext(null)
 
-export function CategoriasProvider({ children }) {
-    const [categorias, setCategorias] = useState(() => categoriaService.listarCategorias());
+export function CategoriasProvider(props) {
+  const [categorias, setCategorias] = useState([])
+  const [cargando, setCargando] = useState(true)
+  const [error, setError] = useState('')
 
-    function crear(datos) {
-        categoriaService.crearCategoria(datos);
-        setCategorias(categoriaService.listarCategorias());
+  const recargar = useCallback(async () => {
+    setCargando(true)
+    setError('')
+    try {
+      const lista = await categoriaService.listarCategoriasApi()
+      setCategorias(lista)
+    } catch (err) {
+      setError(obtenerMensajeError(err))
+    } finally {
+      setCargando(false)
     }
+  }, [])
 
-    function actualizar(id, cambios) {
-        categoriaService.actualizarCategoria(id, cambios);
-        setCategorias(categoriaService.listarCategorias());
-    }
-    function recargar() {
-        setCategorias(categoriaService.listarCategorias());
-    }
+  useEffect(() => {
+    recargar()
+  }, [recargar])
 
-    return (
-        <CategoriasContext.Provider value={{ categorias, crear, actualizar }}>
-            {children}
-        </CategoriasContext.Provider>
-    );
+  async function crear(dto) {
+    const creada = await categoriaService.crearCategoriaApi(dto)
+    setCategorias((actuales) => [...actuales, creada])
+    return creada
+  }
+
+  async function actualizar(id, dto) {
+    const actualizada = await categoriaService.actualizarCategoriaApi(id, dto)
+    setCategorias((actuales) => actuales.map((c) => (c.id === id ? actualizada : c)))
+    return actualizada
+  }
+
+  async function eliminar(id) {
+    await categoriaService.eliminarCategoriaApi(id)
+    setCategorias((actuales) => actuales.filter((c) => c.id !== id))
+  }
+
+  const obtenerPorId = useCallback(async (id) => {
+    return categoriaService.obtenerCategoriaApi(id)
+  }, [])
+
+  return (
+    <CategoriasContext.Provider
+      value={{
+        categorias,
+        cargando,
+        error,
+        crear,
+        actualizar,
+        eliminar,
+        obtenerPorId,
+        recargar,
+      }}
+    >
+      {props.children}
+    </CategoriasContext.Provider>
+  )
 }
+
 export function useCategorias() {
-    const contexto = useContext(CategoriasContext);
-    if (!contexto) {
-        throw new Error('useCategorias debe usarse dentro de un CategoriasProvider');
-    }
-    return contexto;
+  const contexto = useContext(CategoriasContext)
+  if (!contexto) {
+    throw new Error('useCategorias debe usarse dentro de un CategoriasProvider')
+  }
+  return contexto
 }

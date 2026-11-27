@@ -1,30 +1,48 @@
-import { Card } from 'react-bootstrap';
-import categorias from '../../data/categorias.json'
-import TarjetaCategoria from '../molecules/TarjetaCategoria';
-import { Container, Row, Col } from "react-bootstrap";
+import { Alert, Card, Row, Col } from 'react-bootstrap'
+import TarjetaCategoria from '../molecules/TarjetaCategoria'
+import Boton from '../atoms/Boton'
+import { useCategorias } from '../../context/CategoriaContext'
 
 function CategoriaProductos(props) {
-    return (
-        <Card>
-            <h2>Categorías</h2>
-            <Row>
+  const { categorias, cargando, error, recargar } = useCategorias()
 
-                {categorias.map((categoria) => (
-                    <Col key={categoria.id} xs={12} md={6} lg={4}>
-                        <TarjetaCategoria
-                            src={categoria.src}
-                            alt={categoria.alt}
-                            texto={categoria.texto}
-                            onClick={props.onSeleccionar ? () => props.onSeleccionar(categoria.texto) : undefined}
+  return (
+    <Card className="p-3">
+      <h2 className="mb-3">Categorías</h2>
 
-                        />
-                    </Col>
-                ))}
+      {error && (
+        <Alert variant="danger">
+          {error}
+          <div className="mt-2">
+            <Boton variante="outline-danger" texto="Reintentar" onClick={recargar} />
+          </div>
+        </Alert>
+      )}
 
-            </Row>
-        </Card>
-    )
-
+      {cargando ? (
+        <p className="text-center py-4 mb-0" role="status">
+          Cargando categorías...
+        </p>
+      ) : (
+        <Row>
+          {categorias.map((categoria) => (
+            <Col key={categoria.id} xs={12} md={6} lg={4}>
+              <TarjetaCategoria
+                src={categoria.src || categoria.imagen}
+                alt={categoria.alt || categoria.textoAlternativo || categoria.nombre}
+                texto={categoria.texto || categoria.nombre}
+                onClick={
+                  props.onSeleccionar
+                    ? () => props.onSeleccionar(categoria.texto || categoria.nombre)
+                    : undefined
+                }
+              />
+            </Col>
+          ))}
+        </Row>
+      )}
+    </Card>
+  )
 }
 
-export default CategoriaProductos;
+export default CategoriaProductos
