@@ -70,10 +70,11 @@ function PaginaDetalleUsuario() {
   }
 
   const nombreCompleto = `${usuario.nombre ?? ''} ${usuario.apellido ?? ''}`.trim()
-  const pedidosUsuario = pedidos.filter((p) => p.clienteId === usuario.correo)
+  const pedidosUsuario = pedidos.filter(
+  (p) => p.clienteId === usuario.id || p.clienteEmail === usuario.correo)
 
   const columnasPedidos = [
-    { titulo: '# Pedido', llave: 'id' },
+    { titulo: '# Pedido', llave: 'codigoPedido' },
     { titulo: 'Fecha', llave: 'fecha' },
     {
       titulo: 'Entrega',

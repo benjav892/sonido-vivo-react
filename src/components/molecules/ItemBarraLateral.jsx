@@ -1,5 +1,4 @@
-// src/components/moleculas/ItemBarraLateral.jsx
-import { Nav } from 'react-bootstrap';
+// src/components/molecules/ItemBarraLateral.jsx
 import { NavLink } from 'react-router-dom';
 
 function ItemBarraLateral(props) {
@@ -7,16 +6,16 @@ function ItemBarraLateral(props) {
     const ruta = props.ruta;
 
     return (
-        <Nav.Link
-            as={NavLink}
+        <NavLink
             to={ruta}
             end
             className={({ isActive }) =>
-                `my-1 rounded ${isActive ? 'bg-primary' : ''} ${props.className || ''}`
+                `nav-link my-1 rounded text-white ${isActive ? 'active bg-primary fw-semibold' : ''} ${props.className || ''}`
             }
+            style={{ color: '#ffffff' }}
         >
             {texto}
-        </Nav.Link>
+        </NavLink>
     );
 }
 
