@@ -1,44 +1,26 @@
-import categoriasIniciales from '../data/categorias.json';
+import { api } from './api'
+import { normalizarCategoriaApi } from '../dto/categoria.dto'
 
-const CLAVE = 'categorias';
-
-function leer() {
-    const guardado = localStorage.getItem(CLAVE);
-    if (guardado === null) {
-        localStorage.setItem(CLAVE, JSON.stringify(categoriasIniciales));
-        return [...categoriasIniciales];
-    }
-    return JSON.parse(guardado);
+export async function listarCategoriasApi() {
+  const respuesta = await api.get('/v1/categorias')
+  return respuesta.data.map(normalizarCategoriaApi)
 }
 
-function guardar(lista) {
-    localStorage.setItem(CLAVE, JSON.stringify(lista));
+export async function obtenerCategoriaApi(id) {
+  const respuesta = await api.get(`/v1/categorias/${id}`)
+  return normalizarCategoriaApi(respuesta.data)
 }
 
-export function listarCategorias() {
-    return leer();
+export async function crearCategoriaApi(dto) {
+  const respuesta = await api.post('/v1/categorias', dto)
+  return normalizarCategoriaApi(respuesta.data)
 }
 
-export function obtenerCategoria(id) {
-    return leer().find((c) => c.id === id) ?? null;
+export async function actualizarCategoriaApi(id, dto) {
+  const respuesta = await api.put(`/v1/categorias/${id}`, dto)
+  return normalizarCategoriaApi(respuesta.data)
 }
 
-export function crearCategoria(datos) {
-    const lista = leer();
-    const nuevoId = Math.max(0, ...lista.map((c) => c.id)) + 1;
-    const nuevaCategoria = { ...datos, id: nuevoId };
-    guardar([...lista, nuevaCategoria]);
-    return nuevaCategoria;
-}
-
-export function actualizarCategoria(id, cambios) {
-    const lista = leer().map((c) => (c.id === id ? { ...c, ...cambios } : c));
-    guardar(lista);
-    return lista.find((c) => c.id === id) ?? null;
-}
-
-export function eliminarCategoria(id) {
-    const lista = leer().filter((c) => c.id !== id);
-    guardar(lista);
-    return true;
+export async function eliminarCategoriaApi(id) {
+  await api.delete(`/v1/categorias/${id}`)
 }
