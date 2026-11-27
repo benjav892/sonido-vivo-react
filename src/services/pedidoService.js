@@ -1,36 +1,22 @@
-import pedidosIniciales from '../data/pedidos.json';
+import { api } from './api'
+import { normalizarPedidoApi } from '../dto/pedido.dto'
 
-const CLAVE_PEDIDOS = 'pedidosSonidoVivo';
-
-// leer todos los pedidos (inyecta los datos semilla si esta vacio)
-export function leerPedidos() {
-    const guardado = localStorage.getItem(CLAVE_PEDIDOS);
-    
-    if (guardado === null) {
-        localStorage.setItem(CLAVE_PEDIDOS, JSON.stringify(pedidosIniciales));
-        return pedidosIniciales;
-    }
-    
-    return JSON.parse(guardado);
+export async function listarPedidosApi() {
+  const respuesta = await api.get('/v1/pedidos')
+  return respuesta.data.map(normalizarPedidoApi)
 }
 
-// actualizar el estado de un pedido (ej: de "En preparación" a "Despachado")
-export function actualizarEstadoPedido(id, nuevoEstado) {
-    const pedidos = leerPedidos();
-    const index = pedidos.findIndex(p => p.id === id);
-    
-    if (index !== -1) {
-        pedidos[index].estado = nuevoEstado;
-        localStorage.setItem(CLAVE_PEDIDOS, JSON.stringify(pedidos));
-        return pedidos; // Retornamos la lista actualizada
-    }
-    return pedidos;
+export async function obtenerPedidoApi(id) {
+  const respuesta = await api.get(`/v1/pedidos/${id}`)
+  return normalizarPedidoApi(respuesta.data)
 }
 
-// eliminar un pedido (En caso de cancelacion o error)
-export function eliminarPedido(id) {
-    const pedidos = leerPedidos();
-    const pedidosFiltrados = pedidos.filter(p => p.id !== id);
-    localStorage.setItem(CLAVE_PEDIDOS, JSON.stringify(pedidosFiltrados));
-    return pedidosFiltrados; // Retornamos la nueva lista sin el elemento borrado
+export async function crearPedidoApi(dto) {
+  const respuesta = await api.post('/v1/pedidos', dto)
+  return normalizarPedidoApi(respuesta.data)
+}
+
+export async function actualizarEstadoPedidoApi(id, dto) {
+  const respuesta = await api.patch(`/v1/pedidos/${id}/estado`, dto)
+  return normalizarPedidoApi(respuesta.data)
 }
