@@ -203,6 +203,9 @@ sonido-vivo-react/
 │  ├─ favicon.svg
 │  ├─ icons.svg
 │  └─ index.html
+├─ docs/
+│  ├─ Sonido Vivo - ERS - Especificacion de Requisitos de Software - V3.0.pdf
+│  └─ Sonido Vivo - Manual de Usuario - V1.0.pdf
 ├─ public/
 │  ├─ categorias/
 │  │  ├─ accesorios.png
@@ -369,11 +372,11 @@ sonido-vivo-react/
 ├─ .gitignore
 ├─ eslint.config.js
 ├─ index.html
-├─ Informe de Pruebas Unitarias y Coberturas - Sonido Vivo.pdf
 ├─ package-lock.json
 ├─ package.json
 ├─ README.md
 └─ vite.config.js
+
 
 ```
 
