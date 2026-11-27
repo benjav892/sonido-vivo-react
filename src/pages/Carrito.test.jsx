@@ -9,6 +9,10 @@ vi.mock('../hooks/useTituloPagina', () => ({
     useTituloPagina: vi.fn()
 }));
 
+vi.mock('../context/ProductoContext', () => ({
+  useProductos: () => ({ productos: [] }),
+}));
+
 describe('Página Carrito', () => {
     
     // antes de cada prueba, se limpia el almacenamiento
